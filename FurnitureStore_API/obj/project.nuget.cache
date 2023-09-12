@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7o9X/ltF1q1d4zubU3rKkAWj03cQy8TA52QMC12tQ+J9spUvouq+MRb7kLQfZsRvh23xFvAxeWgDkz37lPpC8A==",
+  "dgSpecHash": "E9ZhBB+caIgIHsZEIyVO8BGDrHBKRorJ5GY+scjh2E42lIdV56KNyjGe47TO2tobs5Zv+7AeOrdf899eirv0Ow==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furniture-Store\\FurnitureStore_API\\FurnitureStore_API.csproj",
+  "projectFilePath": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\FurnitureStore_API\\FurnitureStore_API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

@@ -1,6 +1,6 @@
 ﻿namespace FurnitureStore_API.Model.DonHang
 {
-    public class GetDonHang
+    public class GetDonHangResponse
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
