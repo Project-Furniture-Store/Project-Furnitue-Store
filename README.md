@@ -1,1 +1,1 @@
-# Project-Furnitue-Store
+# Project-Furniture-Store
