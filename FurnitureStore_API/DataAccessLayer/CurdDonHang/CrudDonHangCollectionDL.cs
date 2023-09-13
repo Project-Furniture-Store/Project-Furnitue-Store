@@ -38,7 +38,7 @@ namespace FurnitureStore_API.DataAccessLayer
              BsonDocument.Parse("{ $unwind: \"$ChiTietDonHang\" }"),
             BsonDocument.Parse("{ $group: { _id: \"$ChiTietDonHang.SanPham\", totalQuantity: { $sum: \"$ChiTietDonHang.SoLuong\" } } }"),
             BsonDocument.Parse("{ $sort: { totalQuantity: -1 } }"),
-            BsonDocument.Parse("{ $limit: 3 }"),
+            BsonDocument.Parse("{ $limit: 10 }"),
             BsonDocument.Parse("{ $lookup: { from: \"SANPHAM\", localField: \"_id\", foreignField: \"_id\", as: \"copies_sold\" } }"),
             BsonDocument.Parse("{ $unwind: \"$copies_sold\" }"), // Unwind để tách các bản ghi trong copies_sold array
             BsonDocument.Parse("{ $replaceRoot: { newRoot: \"$copies_sold\" } }") // Thay đổi root document thành copies_sold

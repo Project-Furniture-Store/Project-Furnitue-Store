@@ -17,7 +17,6 @@ namespace Project_FurnitureStore.Controllers
     public class HomeController : Controller
     {
 
-
      
         Uri baseAddress=new Uri("https://localhost:7143/api");
         private readonly HttpClient _client;

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project_FurnitureStore.ViewComponents
 {
-    public class ProductViewComponent:ViewComponent
+    public class BestSellerProductViewComponent:ViewComponent
     {
         Uri baseAddress = new Uri("https://localhost:7143/api");
         private readonly HttpClient _client;
-        public ProductViewComponent()
+        public BestSellerProductViewComponent()
         {
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
@@ -21,7 +21,7 @@ namespace Project_FurnitureStore.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             List<SanPhamViewModel> sanphamList = new List<SanPhamViewModel>();
-            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + "/SanPham/GetSanPham");
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + "/DonHang/GetBestProduct");
 
             if (response.IsSuccessStatusCode)
             {
