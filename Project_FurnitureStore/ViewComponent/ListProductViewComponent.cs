@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Project_FurnitureStore.Models;
+using Project_FurnitureStore.Models.OtherModel;
 using System.Threading.Tasks;
 
 namespace Project_FurnitureStore.ViewComponents
@@ -41,5 +42,8 @@ namespace Project_FurnitureStore.ViewComponents
 
             return View(sanphamList);
         }
+
+
+       
     }
 }
