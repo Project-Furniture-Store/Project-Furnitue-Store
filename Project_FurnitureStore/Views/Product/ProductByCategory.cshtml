@@ -1,20 +1,23 @@
 ﻿@model IEnumerable<Project_FurnitureStore.Models.LoaiHangViewModel>
 
 @{
-    ViewData["Title"] = "ProductByCategory";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "ProductByCategory";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @foreach (var item in Model)
 {
-    if (Model != null && Model.Any() && item.id != null)
-    {
-        // Gọi thành phần giao diện và truyền categoryId
-        <img src="@Url.Content("~/Images/"+item.Poster)" class="px-1 w-full h-[300px] bg-cover bg-center text-white py-2"alt=""/>
-        @await Component.InvokeAsync("FilterByCategory", new { categoryId = item.id })
-    }
-    else
-    {
-        <p>categoryId không hợp lệ</p>
-    }
+	if (Model != null && Model.Any() && item.id != null)
+	{
+		// Gọi thành phần giao diện và truyền categoryId
+		<img src="@Url.Content("~/Images/"+item.Poster)" class="px-1 w-full h-[300px] bg-cover bg-center text-white py-2" alt="" />
+		@await Component.InvokeAsync("Category1")
+		
+
+		@await Component.InvokeAsync("FilterByCategory", new { categoryId = item.id })
+	}
+	else
+	{
+		<p>Sản phẩm đang cập nhật</p>
+	}
 }

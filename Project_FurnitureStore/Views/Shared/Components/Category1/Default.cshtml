@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Project_FurnitureStore.Models.LoaiHangViewModel>
+
+
+<ul class="hidden lg:flex lg:itens-center lg:justify-center lg:gap-4 uppercase text-sm text-gray-500 font-medium">
+	@{
+		foreach (var item in Model)
+		{
+			<li class="chin-menu">
+				<a href="#" class="">@item.tenLoai</a>
+			</li>
+		}
+	}
+
+</ul>

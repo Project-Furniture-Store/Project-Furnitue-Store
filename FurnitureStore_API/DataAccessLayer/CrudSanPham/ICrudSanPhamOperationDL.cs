@@ -8,5 +8,6 @@ namespace FurnitureStore_API.DataAccessLayer
     {
         public Task<GetSanPhamResponse> GetSanPham();
         public Task<GetSanPhamResponse> GetSanPhambycateId(string categoryId);
+        public Task<GetSanPhamResponse> GetSanPhambyKeyword(string keyword);
     }
 }

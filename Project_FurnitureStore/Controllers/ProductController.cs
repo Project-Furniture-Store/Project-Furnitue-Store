@@ -25,7 +25,7 @@ namespace Project_FurnitureStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProductByCategory (string categoryId)
+        public async Task<IActionResult> ProductByCategory (string categoryId)// Get all product by category identify
         {
 
             List<LoaiHangViewModel> LoaiHangList = new List<LoaiHangViewModel>();
@@ -40,6 +40,28 @@ namespace Project_FurnitureStore.Controllers
                 {
                     var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
                     LoaiHangList = JsonConvert.DeserializeObject<List<LoaiHangViewModel>>(dataJson);
+                }
+
+            }
+            return View(LoaiHangList);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> SearchProduct(string search)
+        {
+
+            List<SanPhamViewModel> LoaiHangList = new List<SanPhamViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/SanPham/GetSanPhambyKeyword?keyword={search}");
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString();// Lấy phần "data" của JSON
+                    LoaiHangList = JsonConvert.DeserializeObject<List<SanPhamViewModel>>(dataJson);
                 }
 
             }

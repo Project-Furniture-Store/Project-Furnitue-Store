@@ -57,7 +57,13 @@
 		</div>
 
 		<div class="col-span-2">
-			<input type="text" class="w-full px-3 py-2 border-b-[2px] rounded-md focus:outline-none focus:ring focus:border-blue-300" placeholder="Nhập văn bản">
+			<form asp-action="SearchProduct" asp-controller="Product" method="get">
+				<div class="flex">
+					<input type="text"  class="w-full  border-b-[2px] rounded-md focus:outline-none focus:ring focus:border-blue-300" name="search" />
+				<button class="ml-1 rounded-md border-2 border-black px-1 " type="submit">Search</button>
+				</div>
+				
+			</form>
 		</div>
 
 		<div class="col-span">
@@ -83,61 +89,61 @@
 	<br>
 	<br />
 
-	  <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Liên hệ -->
-            <div class="px-4">
-                <h2 class="text-lg font-semibold mb-2">CONTACT</h2>
-                <ul class="list-none">
-                    <li>Contact us</li>
-                    <li>Find Store</li>
-                    <li>Book appointment</li>
-                    <li>As a professional</li>
-                </ul>
-            </div>
+	<footer class="bg-gray-800 text-white py-8">
+		<div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+			<!-- Liên hệ -->
+			<div class="px-4">
+				<h2 class="text-lg font-semibold mb-2">CONTACT</h2>
+				<ul class="list-none">
+					<li>Contact us</li>
+					<li>Find Store</li>
+					<li>Book appointment</li>
+					<li>As a professional</li>
+				</ul>
+			</div>
 
-            <!-- Dịch vụ khách hàng -->
-            <div class="px-4">
-                <h2 class="text-lg font-semibold mb-2">CUSTOMER SERVICE</h2>
-                <ul class="list-none">
-                    <li>Customer information</li>
-                    <li>Delivery</li>
-                    <li>Returns</li>
-                    <li>5 year warranty</li>
-                    <li>Assembly instructions</li>
-                    <li>Handling and packaging</li>
-                    <li>Product care</li>
-                    <li>Order free samples</li>
-                </ul>
-            </div>
+			<!-- Dịch vụ khách hàng -->
+			<div class="px-4">
+				<h2 class="text-lg font-semibold mb-2">CUSTOMER SERVICE</h2>
+				<ul class="list-none">
+					<li>Customer information</li>
+					<li>Delivery</li>
+					<li>Returns</li>
+					<li>5 year warranty</li>
+					<li>Assembly instructions</li>
+					<li>Handling and packaging</li>
+					<li>Product care</li>
+					<li>Order free samples</li>
+				</ul>
+			</div>
 
-            <!-- Giới thiệu -->
-            <div class="px-4">
-                <h2 class="text-lg font-semibold mb-2">ABOUT</h2>
-                <ul class="list-none">
-                    <li>About BoConcept</li>
-                    <li>Join our team</li>
-                    <li>Franchise</li>
-                    <li>Press Lounge</li>
-                </ul>
-            </div>
+			<!-- Giới thiệu -->
+			<div class="px-4">
+				<h2 class="text-lg font-semibold mb-2">ABOUT</h2>
+				<ul class="list-none">
+					<li>About BoConcept</li>
+					<li>Join our team</li>
+					<li>Franchise</li>
+					<li>Press Lounge</li>
+				</ul>
+			</div>
 
-            <!-- My BoConcept -->
-            <div class="px-4">
-                <h2 class="text-lg font-semibold mb-2">MY BOCONCEPT</h2>
-                <ul class="list-none">
-                    <li>Login</li>
-                    <li>Register</li>
-                    <li>Orders</li>
-                    <li>Offers</li>
-                    <li>Favourites</li>
-                </ul>
-            </div>
+			<!-- My BoConcept -->
+			<div class="px-4">
+				<h2 class="text-lg font-semibold mb-2">MY BOCONCEPT</h2>
+				<ul class="list-none">
+					<li>Login</li>
+					<li>Register</li>
+					<li>Orders</li>
+					<li>Offers</li>
+					<li>Favourites</li>
+				</ul>
+			</div>
 
-			 <div class="container mx-auto text-center">
-            <p>&copy; 2023 WuaChiNgonhoang.</p>
-        </div>
-        </div>
-    </footer>
+			<div class="container mx-auto text-center">
+				<p>&copy; 2023 WuaChiNgonhoang.</p>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
