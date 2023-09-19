@@ -14,6 +14,9 @@ namespace Project_FurnitureStore.Models
 
         [Required]
         public string Anh { get; set; }
+
+        [Required]
+        public string Poster { get; set; }
     }
 
 }

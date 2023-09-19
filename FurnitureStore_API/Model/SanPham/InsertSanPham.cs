@@ -26,6 +26,9 @@ namespace FurnitureStore_API.Model.SanPham
         public Supplier NhaCungCap { get; set; }
         public Rating DanhGia { get; set; }
         public int GoldCoin { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Loai { get; set; }
     }
 
    

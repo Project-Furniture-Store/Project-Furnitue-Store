@@ -7,5 +7,6 @@ namespace FurnitureStore_API.DataAccessLayer
     public interface ICrudOperationDL_SanPham
     {
         public Task<GetSanPhamResponse> GetSanPham();
+        public Task<GetSanPhamResponse> GetSanPhambycateId(string categoryId);
     }
 }

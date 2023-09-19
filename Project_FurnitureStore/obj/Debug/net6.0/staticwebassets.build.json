@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NqHs4Sw2HVuuxxXRCdTzgYJGFBpOhuH0WR6ciLsbmTM=",
+  "Hash": "zBaZm84v4jWku07hwCOoXQvPiwavHV/Ym6M7nergK4s=",
   "Source": "Project_FurnitureStore",
   "BasePath": "_content/Project_FurnitureStore",
   "Mode": "Default",
@@ -457,6 +457,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\outdoor.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\ptamchair.jpg",
+      "SourceId": "Project_FurnitureStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\",
+      "BasePath": "_content/Project_FurnitureStore",
+      "RelativePath": "Images/ptamchair.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ptamchair.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\ptlamp.jpg",
+      "SourceId": "Project_FurnitureStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\",
+      "BasePath": "_content/Project_FurnitureStore",
+      "RelativePath": "Images/ptlamp.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ptlamp.jpg"
     },
     {
       "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\slider.jpg",

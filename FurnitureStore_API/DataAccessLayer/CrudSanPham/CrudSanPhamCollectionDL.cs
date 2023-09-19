@@ -62,9 +62,32 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-       
+		public async Task<GetSanPhamResponse> GetSanPhambycateId(string categoryId)
+		{
+            GetSanPhamResponse response = new GetSanPhamResponse();
 
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
 
+            try
+            {
+                response.data = new List<InsertSanPhamResquest>();
+                response.data = await _mongoCollection.Find(x => (x.Loai== categoryId)).ToListAsync();
+                if (response.data.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
 
-    }
+            // Trả về phản hồi
+            return response;
+        }
+	}
 }

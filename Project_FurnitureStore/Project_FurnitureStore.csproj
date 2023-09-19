@@ -17,10 +17,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Views\Shared\Components\Product1\" />
-	</ItemGroup>
-
 	<Target Name="Tailwind" BeforeTargets="Build">
 		<Exec Command="npm run css:build" />
 	</Target>

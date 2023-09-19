@@ -21,6 +21,7 @@ namespace Project_FurnitureStore.Models
         public Supplier NhaCungCap { get; set; }
         public Rating DanhGia { get; set; }
         public int GoldCoin { get; set; }
+        public string Loai { get; set; }
     }
 
 

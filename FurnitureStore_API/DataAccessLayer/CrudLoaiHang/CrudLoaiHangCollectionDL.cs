@@ -52,7 +52,37 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-        public async Task<InsertLoaiHangResponse> InsertLoaiHang(InsertLoaiHangResquest request)
+		public async Task<GetLoaiHangResponse> GetLoaiHangByID(string id)
+		{
+            GetLoaiHangResponse response = new GetLoaiHangResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                // Thực hiện thêm dữ liệu vào MongoDB
+                response.data = new List<InsertLoaiHangResquest>();
+                response.data = await _mongoCollection.Find(x => (x.id==id)).ToListAsync();
+                if (response.data.Count == 0)
+                {
+                    //  response.Message = "No record found";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+		public async Task<InsertLoaiHangResponse> InsertLoaiHang(InsertLoaiHangResquest request)
         {
             InsertLoaiHangResponse response = new InsertLoaiHangResponse();
 

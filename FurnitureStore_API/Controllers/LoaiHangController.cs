@@ -64,5 +64,28 @@ namespace FurnitureStore_API.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult> GetLoaiHangByID([FromQuery] string id)
+        {
+            // thông báo
+            GetLoaiHangResponse response = new GetLoaiHangResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.GetLoaiHangByID(id);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
     }
 }

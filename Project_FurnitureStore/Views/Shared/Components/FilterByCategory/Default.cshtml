@@ -1,10 +1,13 @@
-﻿@model IEnumerable<Project_FurnitureStore.Models.SanPhamViewModel>
+﻿
+
+@model IEnumerable<Project_FurnitureStore.Models.SanPhamViewModel>
 
 <div class="px-5 flex grid grid-cols-4 gap-[10px]">
 	@{
-		for(int i=0; i<15; i++)
+		foreach (var item in Model)
 		{
-			var item=Model.ElementAt(i);
+		
+		
 			<div class="bg-white border-2 border-black h-[380px] w-full rounded-lg p-[10px]">
 				<img class="w-full h-[200PX]    rounded-lg" src="./Images/GheElisa.jpeg">
 				<div class="flex items-center ">
@@ -39,6 +42,3 @@
 
 
 </div>
-
-
-

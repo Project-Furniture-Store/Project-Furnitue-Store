@@ -16,6 +16,9 @@ namespace FurnitureStore_API.Model.LoaiHang
         [Required]
         public string Anh { get; set; }
 
+        [Required]
+        public string Poster { get; set; }
+
 
     }
 

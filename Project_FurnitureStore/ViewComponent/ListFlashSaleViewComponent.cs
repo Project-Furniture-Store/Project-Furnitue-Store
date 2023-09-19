@@ -37,7 +37,7 @@ namespace Project_FurnitureStore.ViewComponents
 
                     DateTime end = start.AddHours(1);
 
-                    if (gioHienTai >= start && gioHienTai <= end)
+                    if (start <=gioHienTai  && gioHienTai <= end)
                     {
                         filteredSanPham.Add(sanPham);
                         break; // Thoát khỏi vòng lặp inner khi tìm thấy giờ trùng khớp
