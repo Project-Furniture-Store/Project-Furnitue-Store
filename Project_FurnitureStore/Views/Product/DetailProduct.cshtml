@@ -121,8 +121,29 @@
 						<button class=" border-slate-300  border-l-4 increment">+</button>
 					</div>
 				</div>
+
+				<script>
+										function xuLyClick() {
+						var quantityInput = document.querySelector('.quantity-input');
+						var colorInputs = document.querySelectorAll('input[name="color"]');
+
+						var soLuong = quantityInput.value;
+
+						var mauSacDuocChon = null;
+						colorInputs.forEach(function(input) {
+							if (input.checked) {
+								mauSacDuocChon = input.value;
+							}
+						});
+
+						alert('Số lượng: ' + soLuong + ', Màu sắc: ' + mauSacDuocChon);
+					}
+				</script>
+
+
+
 				<div class=" py-5 my-6 flex gap-3 boder-b border-gray-200 ">
-					<a href="#" class=" pl-8  pr-8 pt-2 pb-2 rounded font-medium items-center bg-zinc-900 border border-zinc-900 text-white text-uppercase flex  gap-2 hover:bg-transparent hover:text-zinc-900 transition ">
+					<a onclick="xuLyClick()" href="#" class=" pl-8  pr-8 pt-2 pb-2 rounded font-medium items-center bg-zinc-900 border border-zinc-900 text-white text-uppercase flex  gap-2 hover:bg-transparent hover:text-zinc-900 transition ">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 							<path fill-rule="evenodd" d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z" clip-rule="evenodd" />
 						</svg>
@@ -180,16 +201,16 @@
 		</div>
 		<h2>Đánh giá của khách hàng</h2>
 		<div class="feedback-container">
-			
+
 			<div class="rating">
-				
-			<span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+
+				<span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
 			</div>
 			<div class="detail">
 				<p><strong>Khách hàng:</strong> @item.DanhGia.KhachHangFeeback</p>
 				<p><strong>Chi tiết:</strong> @item.DanhGia.ChiTiet</p>
-				
-			<img src="Hinh" alt="Hình sản phẩm">
+
+				<img src="Hinh" alt="Hình sản phẩm">
 			</div>
 		</div>
 
