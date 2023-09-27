@@ -38,5 +38,27 @@ namespace FurnitureStore_API.Controllers
             // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
             return Ok(response);
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult> GetSLProduct([FromQuery] string idsp) //Đếm sản phẩm trong đơn hàng có mã sp là X
+        {
+            // thông báo
+            string response="0";
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.GetSLProduct(idsp);
+            }
+            catch (Exception ex)
+            {// Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
     }
 }

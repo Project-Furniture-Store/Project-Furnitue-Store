@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zBaZm84v4jWku07hwCOoXQvPiwavHV/Ym6M7nergK4s=",
+  "Hash": "0rq3OiwemfF73t3tQ5KxKwdcxUaeXfcv01iGI0N0Uk8=",
   "Source": "Project_FurnitureStore",
   "BasePath": "_content/Project_FurnitureStore",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\css\\tailwindcss.css",
+      "SourceId": "Project_FurnitureStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\",
+      "BasePath": "_content/Project_FurnitureStore",
+      "RelativePath": "css/tailwindcss.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\tailwindcss.css"
     },
     {
       "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\favicon.ico",

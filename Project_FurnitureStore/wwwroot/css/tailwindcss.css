@@ -1,0 +1,41 @@
+﻿
+.images {
+    @apply cursor-pointer grid grid-cols-5 gap-4 mt-4;
+}
+
+.price {
+    @apply flex items-baseline mb-1 space-x-2 font-roboto mt-4;
+}
+
+.starts {
+    @apply flex gap-1 text-sm text-yellow-400;
+}
+
+.container {
+    @apply mx-auto;
+    padding: 1rem;
+}
+
+.details {
+    @apply space-y-2;
+}
+
+.butnn {
+    padding-bottom: 1.25rem; /* 20px */
+    margin-top: 1.5rem; /* 24px */
+}
+
+.butnn-nuttt {
+    @apply hover:bg-transparent hover:text-zinc-900 transition;
+    padding-left: 2rem; /* 32px */
+    padding-right: 2rem; /* 32px */
+    padding-top: 0.5rem; /* 8px */
+    padding-bottom: 0.5rem; /* 8px */
+    border-radius: 0.25rem; /* 4px */
+    font-weight: 500;
+    align-items: center;
+}
+
+.soluong {
+    @apply flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max;
+}

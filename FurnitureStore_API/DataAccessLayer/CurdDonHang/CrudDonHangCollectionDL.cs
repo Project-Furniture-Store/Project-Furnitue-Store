@@ -63,5 +63,39 @@ namespace FurnitureStore_API.DataAccessLayer
             // Trả về phản hồi
             return response;
         }
+
+        public async Task<String> GetSLProduct(string idsp)
+        {
+            string response="0";
+            try
+            {
+                var pipeline = new[]
+                {
+             BsonDocument.Parse("{ $unwind: \"$ChiTietDonHang\" }"),
+             BsonDocument.Parse("{ $match: { \"ChiTietDonHang.SanPham\": ObjectId(\"64f288cf8e0388d5867a6473\") } }"),
+             BsonDocument.Parse("{ $count: \"total\" }")
+        };
+
+                var result = await _mongoCollection.Aggregate<BsonDocument>(pipeline).FirstOrDefaultAsync();
+
+                if (result != null)
+                {
+                    response = result["total"].ToString(); // Lấy giá trị "total" từ kết quả
+                }
+                else
+                {
+                    response = "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                response = "0";
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
     }
+
 }

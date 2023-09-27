@@ -65,10 +65,84 @@ namespace Project_FurnitureStore.Controllers
                 }
 
             }
+            ViewBag.SearchTerm = search;
             return View(LoaiHangList);
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> DetailProduct(string idProduct)
+        {
+            
+            List<SanPhamViewModel> SanPhamList = new List<SanPhamViewModel>();
+            //lấy chi tiết sản phẩm
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/SanPham/GetSanPhambyId?id={idProduct}");
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString();// Lấy phần "data" của JSON
+                    SanPhamList = JsonConvert.DeserializeObject<List<SanPhamViewModel>>(dataJson);
+                }
+
+            }
+            //lấy mã loại - tên loại của sản phẩm đó
+            string idloaiHang = SanPhamList[0].Loai;
+           
+            List<LoaiHangViewModel> LoaiHangList = new List<LoaiHangViewModel>();
+            LoaiHangList = await GetLoaiHangbyid(idloaiHang);
+            ViewData["MaLoai"] = LoaiHangList[0].id;
+            ViewData["TenLoai"] = LoaiHangList[0].tenLoai;
+
+            //Đếm sản phẩm trong đơn hàng
+            ViewData["Count"] = await GetSLSPinDonHang(SanPhamList[0].id);
+
+            return View(SanPhamList);
+
+            
+        }
+
+
+        public async Task<List<LoaiHangViewModel>> GetLoaiHangbyid(string idloai)
+        {
+            List<LoaiHangViewModel> LoaiHangList = new List<LoaiHangViewModel>();
+            HttpResponseMessage response1 = await _client.GetAsync(_client.BaseAddress + $"/LoaiHang/GetLoaiHangByID?id={idloai}");
+            if (response1.IsSuccessStatusCode)
+            {
+                string data = await response1.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString();// Lấy phần "data" của JSON
+                    LoaiHangList = JsonConvert.DeserializeObject<List<LoaiHangViewModel>>(dataJson);
+                }
+
+            }
+            return LoaiHangList;
+        }
+
+
+        public async Task<string> GetSLSPinDonHang(string idsp)
+        {
+            string result = "0";
+            HttpResponseMessage response1 = await _client.GetAsync(_client.BaseAddress + $"/DonHang/GetSLProduct?idsp={idsp}");
+
+            if (response1.IsSuccessStatusCode)
+            {
+                string data = await response1.Content.ReadAsStringAsync();
+
+
+                result = data;
+
+
+            }
+
+            return result;
+        }
 
 
     }

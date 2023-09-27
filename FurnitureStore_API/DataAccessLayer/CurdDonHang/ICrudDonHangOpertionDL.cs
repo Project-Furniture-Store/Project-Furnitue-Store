@@ -6,5 +6,6 @@ namespace FurnitureStore_API.DataAccessLayer
     public interface ICrudOperationDL_DonHang
     {
         public Task<GetSanPhamResponse> GetBestProduct();
+        public Task<String> GetSLProduct(string idsp);
     }
 }

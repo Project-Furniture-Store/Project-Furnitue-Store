@@ -2,12 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 
 
+
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+}
+
+
+
+
+.color-options {
+    display: flex;
+}
+
+.color {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.red {
+    background-color: #FF0000;
+}
+
+.blue {
+    background-color: #0000FF;
+}
+
+.green {
+    background-color: #00FF00;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .color {
+        border: 4px solid #FFF;
+}
 
 .red-text {
     color: red;
@@ -45,14 +87,43 @@
     cursor: pointer;
 }
 
-    .buy-button:hover {
+.buy-button:hover {
         background-color: white; /* Màu nền */
         color: black; /* Loại bỏ đường viền */
         border-color: black;
         border: solid;
+ }/*
+//-------------=================*/
+
+.feedback-container {
+    max-width: 600px;
+ 
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.rating {
+    font-size: 24px;
+    color: gold;
+}
+
+.detail {
+    margin-top: 10px;
+}
+
+    .detail img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .detail video {
+        max-width: 100%;
+        height: auto;
     }
 
 
-.chin-menu {
-    @apply cursor-pointer py-1 hover:text-amber-800 relative after:absolute after:bottom-0 after:left-0 after:bg-blue-900 after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:ease-in-out after:duration-300;
-}
+
+
