@@ -1,5 +1,6 @@
 ﻿using FurnitureStore_API.DataAccessLayer;
 using FurnitureStore_API.Model.KhachHang;
+using FurnitureStore_API.Model.Other.GioHang;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore_API.Controllers
@@ -58,6 +59,26 @@ namespace FurnitureStore_API.Controllers
 
             // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
             return Ok(soluong);
+        }
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> AddProductCart([FromQuery] string idkh, string idsp, string mausac, string dongia, string sl, string size)
+        {
+            GetKhachHangResponse response = new GetKhachHangResponse();
+
+            try
+            {
+                response = await _crudOperationDL.AddProductCart(idkh, idsp, mausac, dongia, sl, size);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            return Ok(response);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using FurnitureStore_API.Model.KhachHang;
+using FurnitureStore_API.Model.Other.GioHang;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -22,8 +23,51 @@ namespace FurnitureStore_API.DataAccessLayer
             _mongoCollection = _mongoDatabase.GetCollection<InsertKhachHangResquest>(collectionName);
         }
 
+        public async Task<GetKhachHangResponse> AddProductCart(string idkh, string idsp, string mausac, string dongia, string sl, string size)
+        {
+            GetKhachHangResponse response = new GetKhachHangResponse();
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
 
-        public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass)
+            try
+            {
+                var gioHangItem = new GioHangItem
+                {
+                    SanPhamCart = idsp,
+                    DonGia = int.Parse(dongia),
+                    MauSac = mausac,
+                    SoLuong =int.Parse(sl),
+                    KichCo = size
+                };
+
+                var filter = Builders<InsertKhachHangResquest>.Filter.Eq("_id", ObjectId.Parse(idkh));
+                var update = Builders<InsertKhachHangResquest>.Update.Push("GioHang", gioHangItem);
+
+                var result = await _mongoCollection.UpdateOneAsync(filter, update);
+
+                if (result.IsAcknowledged && result.ModifiedCount > 0)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Data Successfully";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "No data updated";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            return response;
+        }
+
+
+
+		public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass)
         {
             GetKhachHangResponse response = new GetKhachHangResponse();
 

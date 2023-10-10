@@ -1,5 +1,6 @@
 ﻿using FurnitureStore_API.Model;
 using FurnitureStore_API.Model.KhachHang;
+using FurnitureStore_API.Model.Other.GioHang;
 
 namespace FurnitureStore_API.DataAccessLayer
 {
@@ -7,5 +8,6 @@ namespace FurnitureStore_API.DataAccessLayer
     {
         public Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass);
         public Task<string> GetSLSanPham(string idKH);
+        public Task<GetKhachHangResponse> AddProductCart(string idkh, string idsp, string mausac, string dongia, string sl, string size);
     }
 }

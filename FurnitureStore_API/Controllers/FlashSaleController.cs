@@ -1,5 +1,4 @@
 ﻿using FurnitureStore_API.DataAccessLayer;
-using FurnitureStore_API.Model.FlashSale;
 using FurnitureStore_API.Model.Other;
 using Microsoft.AspNetCore.Mvc;
 

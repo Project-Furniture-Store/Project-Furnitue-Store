@@ -1,4 +1,5 @@
 ﻿
+using FurnitureStore_API.Model.KhachHang;
 using FurnitureStore_API.Model.Other;
 
 namespace FurnitureStore_API.DataAccessLayer

@@ -23,13 +23,21 @@ namespace Project_FurnitureStore.Controllers
             _client.BaseAddress = baseAddress;
         }
 
-
-        public IActionResult Login(String currentUrl)
+        
+        public IActionResult Login(string currentUrl, string ?id,string ?mausac, string ?dongia, string ?sl, string ?size)
         {
-            HttpContext.Session.SetString("returnCurrentUrl", currentUrl);
+            if(id!=null)
+            {
+                string infor = id +'/'+ mausac + '/' + dongia + '/' + sl + '/' + size+'/'+ currentUrl;
+                HttpContext.Session.SetString("inforCart", infor);
+            }
 
+            HttpContext.Session.SetString("returnCurrentUrl", currentUrl);
             return View();
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult> Login(string account1, string pass1)
@@ -48,34 +56,47 @@ namespace Project_FurnitureStore.Controllers
                 {
                     var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
                     KhachHangList = JsonConvert.DeserializeObject<List<KhachHangViewModel>>(dataJson);
-                    HttpContext.Session.SetString("IDCustomer", value: KhachHangList[0]._id.ToString());
-                    string url = HttpContext.Session.GetString("returnCurrentUrl");
-                    GetSLSanPham();
-                    return Redirect(url);
+                    if (KhachHangList.Any())
+                    {
+                        HttpContext.Session.SetString("IDCustomer", value: KhachHangList[0]._id.ToString());
+                        string url = HttpContext.Session.GetString("returnCurrentUrl");
+                        GetSLSanPham();
+                        var inforProduct = HttpContext.Session.GetString("inforCart");
+                        if (inforProduct != null)
+                        {
+                            string[] array = inforProduct.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                            return RedirectToAction("ThemGioHang", "Cart", new { idsp = array[0], mausac = array[1], dongia = array[2], sl = array[3], size = array[4], url = array[5] });
+                        }
+                        return Redirect(url);
+                    }
+                    else
+                    {
+                        ViewBag.UserName = "Tài khoản hoặc mật khẩu sai";
+                        return View();
+                    }
                 }
-                else
-                {
-                    ViewBag.UserName = "Tài khoản hoặc mật khẩu sai";
-                    return View();
-                }
+               
 
             }
             return View();
         }
 
 
-        public async void GetSLSanPham()
+        public async Task GetSLSanPham()
         {
             string sl = "0";
             string IdKH = HttpContext.Session.GetString("IDCustomer");
-            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhachHang/GetSLSanPham?idKH={IdKH}");
-            if (response.IsSuccessStatusCode)
-            {
-                // Xử lý dữ liệu từ response ở đây (ví dụ: loaihangList = await response.Content.ReadAsAsync<List<LoaiHangViewModel>>();)
-                string data = await response.Content.ReadAsStringAsync();
-                sl = data;
-                HttpContext.Session.SetString("SoLuongSanPham", sl); 
 
+            if (!string.IsNullOrEmpty(IdKH))
+            {
+                HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhachHang/GetSLSanPham?idKH={IdKH}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    sl = data;
+                    HttpContext.Session.SetString("SoLuongSanPham", sl);
+                }
             }
         }
     }
