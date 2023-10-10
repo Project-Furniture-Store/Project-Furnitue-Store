@@ -2,7 +2,8 @@
 {
 	public class KhachHangViewModel
 	{
-        public string _id { get; set; }
+        
+        public string? _id { get; set; }
         public string TenKhachHang { get; set; }
         public string TaiKhoan { get; set; }
         public string MatKhau { get; set; }
@@ -14,6 +15,7 @@
 
     public class GioHangItem
     {
+
         public string SanPhamCart { get; set; }
         public int DonGia { get; set; }
         public string MauSac { get; set; }

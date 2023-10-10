@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace FurnitureStore_API.DataAccessLayer
 {
-    public class CrudDonHangCollectionDL: ICrudOperationDL_DonHang
+    public class CrudDonHangCollectionDL : ICrudOperationDL_DonHang
     {
         private readonly IConfiguration _configuration;
         private readonly MongoClient _mongoClient;
@@ -66,15 +66,15 @@ namespace FurnitureStore_API.DataAccessLayer
 
         public async Task<String> GetSLProduct(string idsp)
         {
-            string response="0";
+            string response = "0";
             try
             {
                 var pipeline = new[]
-                {
-             BsonDocument.Parse("{ $unwind: \"$ChiTietDonHang\" }"),
-             BsonDocument.Parse("{ $match: { \"ChiTietDonHang.SanPham\": ObjectId(\"64f288cf8e0388d5867a6473\") } }"),
-             BsonDocument.Parse("{ $count: \"total\" }")
-        };
+{
+    BsonDocument.Parse("{ $unwind: \"$ChiTietDonHang\" }"),
+    BsonDocument.Parse($"{{ $match: {{ \"ChiTietDonHang.SanPham\": ObjectId(\"{idsp}\") }} }}"),
+    BsonDocument.Parse("{ $count: \"total\" }")
+};
 
                 var result = await _mongoCollection.Aggregate<BsonDocument>(pipeline).FirstOrDefaultAsync();
 
