@@ -28,7 +28,7 @@ namespace Project_FurnitureStore.Controllers
         {
             if(id!=null)
             {
-                string infor = id +'/'+ mausac + '/' + dongia + '/' + sl + '/' + size+'/'+ currentUrl;
+                string infor = id +'$'+ mausac + '$' + dongia + '$' + sl + '$' + size+'$'+ currentUrl;
                 HttpContext.Session.SetString("inforCart", infor);
             }
 
@@ -64,9 +64,16 @@ namespace Project_FurnitureStore.Controllers
                         var inforProduct = HttpContext.Session.GetString("inforCart");
                         if (inforProduct != null)
                         {
-                            string[] array = inforProduct.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] array = inforProduct.Split(new char[] { '$' }, StringSplitOptions.RemoveEmptyEntries);
+                            string d = array[5];
                             return RedirectToAction("ThemGioHang", "Cart", new { idsp = array[0], mausac = array[1], dongia = array[2], sl = array[3], size = array[4], url = array[5] });
                         }
+                        return Redirect(url);
+                    }
+                    else if(account1=="admin" && pass1=="1111")
+                    {
+                        HttpContext.Session.SetString("IDCustomer", value: "admin");
+                        string url = HttpContext.Session.GetString("returnCurrentUrl");
                         return Redirect(url);
                     }
                     else
@@ -98,6 +105,13 @@ namespace Project_FurnitureStore.Controllers
                     HttpContext.Session.SetString("SoLuongSanPham", sl);
                 }
             }
+        }
+
+
+        public async Task<ActionResult> LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

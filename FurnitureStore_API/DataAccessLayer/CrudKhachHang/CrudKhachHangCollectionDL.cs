@@ -67,7 +67,7 @@ namespace FurnitureStore_API.DataAccessLayer
 
 
 
-		public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass)
+		public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass) // gét đăng nhập
         {
             GetKhachHangResponse response = new GetKhachHangResponse();
 
@@ -81,6 +81,36 @@ namespace FurnitureStore_API.DataAccessLayer
                 // Thực hiện thêm dữ liệu vào MongoDB
                 response.data = new List<InsertKhachHangResquest>();
                 response.data = await _mongoCollection.Find(x => (x.TaiKhoan == account && x.MatKhau == pass)).ToListAsync();
+                if (response.data.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+        public async Task<GetKhachHangResponse> GetKhachHangbyID(string idKH)
+        {
+            GetKhachHangResponse response = new GetKhachHangResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                // Thực hiện thêm dữ liệu vào MongoDB
+                response.data = new List<InsertKhachHangResquest>();
+                response.data = await _mongoCollection.Find(x => (x._id == idKH)).ToListAsync();
                 if (response.data.Count == 0)
                 {
                     response.Message = "No record found";

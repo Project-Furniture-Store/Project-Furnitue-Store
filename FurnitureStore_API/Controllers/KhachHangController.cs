@@ -17,6 +17,30 @@ namespace FurnitureStore_API.Controllers
             _crudOperationDL = crudOperationDL;
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult> GetKhachHangbyID([FromQuery]  string idKH)
+        {
+            // thông báo
+            GetKhachHangResponse response = new GetKhachHangResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.GetKhachHangbyID(idKH);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
+
         [HttpGet]
         public async Task<ActionResult> GetKhachHangLogin([FromQuery] string account,string pass)
         {

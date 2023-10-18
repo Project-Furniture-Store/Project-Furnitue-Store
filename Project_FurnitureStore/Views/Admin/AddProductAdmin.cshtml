@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewData["Title"] = "AddProductAdmin";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+@{
+	 var khuyenMaiList =TempData["KhuyenMailist"] as List<KhuyenMaiViewModel>;
+	  var loaiHangList =TempData["LoaiHanglist"] as List<LoaiHangViewModel>;
+}
+
+
+<div class="flex-1 px-10 w-[1000px]">
+	<div class="bg-white rounded-lg px-8  ">
+		<h1 class="text-2xl font-semibold mb-6 text-gray-800">Đăng Sản Phẩm Mới</h1>
+		<form>
+			<div class="flex mb-4">
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Tên sản phẩm: </label>
+					<input type="text" id="productName" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Đơn giá</label>
+					<input type="text" id="productDonGia" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Màu Sắc:</label>
+					<input type="text" id="productColor" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+
+			<div class="mb-4">
+				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-description">Miêu Tả</label>
+				<textarea class="w-full border rounded py-2 px-3 text-gray-700 h-32 focus:outline-none focus:ring focus:border-blue-500" id="product-description"></textarea>
+			</div>
+
+
+			<div  class="flex mb-4">
+				
+			
+				<div class="w-1/2 pr-2">
+					<label class="block text-gray-700 text-sm font-medium mb-2" for="product-image">Hình Ảnh</label>
+				<input class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-image" type="file">
+				</div>
+
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Kích thước</label>
+					<input type="text" id="productSize" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+			
+			<div class="flex mb-4">
+				<div class="w-1/2 pr-2">
+					<label for="productSup" class="block text-gray-700 text-sm font-bold mb-2">Nhà cung cấp</label>
+					<input type="text" id="productSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="productAddrSup" class="block text-gray-700 text-sm font-bold mb-2">Địa chỉ</label>
+					<input type="text" id="productAddrSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="phoneSup" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+					<input type="text" id="phoneSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+
+
+			<div class="mb-4">
+				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-type">Loại</label>
+				<select class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="productloai">
+					@foreach (var item in loaiHangList)
+					{
+						<option value="@item.id">@item.tenLoai</option>
+					}
+					<!-- Thêm các loại khác tại đây -->
+				</select>
+			</div>
+			<div class="flex items-center justify-end">
+				<button id="submit-button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500" type="button">
+					Đăng Sản Phẩm
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var submitButton = document.getElementById('submit-button');
+
+    submitButton.addEventListener('click', function() {
+		
+        var tenSanPham = document.getElementById('productName').value;
+        var donGia = document.getElementById('productDonGia').value;
+        var mauSac = document.getElementById('productColor').value;
+        var mieuTa = document.getElementById('product-description').value;
+        var kichThuoc = document.getElementById('productSize').value;
+        var productImageInput = document.getElementById('product-image');
+    var productImageName = productImageInput.files[0].name; 
+		alert(productImageName);
+        var nhaCungCap = document.getElementById('productSup').value;
+        var diaChi = document.getElementById('productAddrSup').value;
+        var phone = document.getElementById('phoneSup').value;
+        var productTypeSelect = document.getElementById('productloai').value;
+		
+		alert(productImageInput + "/" + productTypeSelect);
+
+		 var url = '/Admin/AddProduct?'
+            + 'tensp=' + encodeURIComponent(tenSanPham)
+            + '&mieutta=' + encodeURIComponent(mieuTa)
+            + '&dongia=' + encodeURIComponent(donGia)
+            + '&mausac=' + encodeURIComponent(mauSac)
+            + '&kichco=' + encodeURIComponent(kichThuoc)
+            + '&hinh=' + encodeURIComponent(productImageName)
+            + '&nhacc=' + encodeURIComponent(nhaCungCap)
+            + '&dcncc=' + encodeURIComponent(diaChi)
+            + '&sdt=' + encodeURIComponent(phone)
+            + '&loai=' + encodeURIComponent(productTypeSelect);
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
+
+       
+    });
+});
+
+</script>
+
+
+<hr />
+
+<h3 class="ml-[42px]">Your product</h3>
+<div class="flex">
+	 <input class="w-[250px] px-15 ml-15" size="150" type="text" name="q" placeholder="Tìm kiếm..." >
+     <button class="ml-[10px]" type="submit" style="padding: 5px 10px; background-color: #007bff; color: #fff; border: none;">Tìm kiếm</button>
+</div>
+<br />
+<div id="ListProduct">
+	@await Component.InvokeAsync("ListProduct")
+	<div id="Seemore" class="flex items-center justify-center ">
+	<button type="button" class="btn btn-outline-secondary  mx-auto w-[500px]">See More Items</button>
+</div>
+</div>
+
+<div id="ListProductAll" style="display:none;">
+	@await Component.InvokeAsync("ListProductAll")
+	<div id="Seeless" class="flex items-center justify-center ">
+	<button type="button" class="btn btn-outline-secondary  mx-auto w-[500px]">See Less Items</button>
+</div>
+</div>
+
+<br />
+
+<script>
+
+    document.getElementById("Seemore").addEventListener("click", function() {
+    document.getElementById("ListProduct").style.display = "none";
+    document.getElementById("ListProductAll").style.display = "block";
+});
+
+
+
+    document.getElementById("Seeless").addEventListener("click", function() {
+    document.getElementById("ListProduct").style.display = "block";
+    document.getElementById("ListProductAll").style.display = "none";
+});
+
+
+
+
+
+</script>
+

@@ -136,3 +136,192 @@ input[type="radio"]:checked + .color {
     background: #9A3B3B;
 }
 
+.menu .logo {
+    padding: 20px;
+    font-family: 'Lobster', cursive;
+    font-size: xx-large;
+    height: 40px;
+}
+
+    .menu .logo span {
+        color: var(--orange);
+    }
+
+.menu ul {
+    padding: 20px 0 20px 20px;
+    list-style: none;
+    border-bottom: 1px solid var(--light);
+}
+
+    .menu ul li {
+        padding: 10px 0;
+    }
+
+        .menu ul li i {
+            margin-right: 12px;
+        }
+
+        .menu ul li.active {
+            color: var(--black);
+            border-right: 2px solid var(--black);
+        }
+
+        .menu ul li:hover {
+            color: var(--black);
+            border-right: 2px solid var(--black);
+        }
+/* end menu */
+/* center */
+/* form */
+.center .search {
+    background-color: var(--yellow);
+    padding: 20px;
+    
+}
+
+    .center .search .form {
+        width: max-content;
+        border: 1px solid var(--light);
+        border-radius: 20px;
+        padding-left: 15px;
+        color: var(--light);
+    }
+
+        .center .search .form input {
+            border: none;
+            padding: 0 10px;
+            outline: none;
+            width: 100px;
+        }
+
+        .center .search .form button {
+            background-color: var(--black);
+            color: var(--light);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+/* end form */
+
+.center h2 {
+    padding: 20px;
+}
+
+.center .list {
+    padding: 0 20px 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.item {
+    background-color: var(--white);
+    display: grid;
+    grid-template-columns: 20% auto;
+    padding: 10px;
+    column-gap: 20px;
+    border-radius: 20px;
+}
+
+    .item .img img {
+        height: 70px;
+    }
+
+    .item .img {
+        background-color: var(--light);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .item .content .title {
+        font-weight: bold;
+    }
+
+    .item .content .des {
+        font-size: small;
+        opacity: 0.7;
+        margin-top: 5px;
+    }
+
+    .item .content .price {
+        color: var(--orange);
+        letter-spacing: 2px;
+        font-weight: 500;
+        font-size: small;
+        margin-top: 5px;
+    }
+
+    .item .count {
+        width: 50px;
+        border-radius: 10px;
+        margin-right: 10px;
+        padding: 3px 5px;
+        border: 1px solid var(--light);
+        outline: none;
+        margin-top: 5px;
+        border-color: rgb(148 163 184);
+    }
+
+    .item .content .add {
+        margin-top: 5px;
+        background-color: var(--black);
+        color: var(--white);
+        padding: 5px 10px;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .item .content .remove {
+        padding: 5px;
+        border: none;
+        margin-top: 5px;
+        border-radius: 10px;
+        display: none;
+    }
+
+/* end center */
+.cart .item {
+    transition: 0.5s;
+    border-bottom: 1px solid var(--light);
+}
+
+.cart .name {
+    padding: 20px;
+    height: 40px;
+    font-weight: bold;
+    font-size: xx-large;
+    border-bottom: 1px solid var(--light)
+}
+
+.danger {
+    box-shadow: 0 10px 10px var(--black);
+    transform: translate(0,-10px);
+}
+
+.cart .add {
+}
+
+.cart .remove {
+}
+
+
+#SuaThongTinSP {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*Thêm các thuộc tính CSS khác tùy ý*/
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ 50% */
+    display: none; /* Ẩn ban đầu */
+}

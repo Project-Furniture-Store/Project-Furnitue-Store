@@ -25,12 +25,19 @@ namespace Project_FurnitureStore.Controllers
         }
 
 
-        
+        public IActionResult Index()
+        {
+
+
+            return View();
+        }
+
+
         public async Task<ActionResult> ThemGioHang(string idsp, string mausac, string dongia, string sl, string size, string url)
         {
-            var idKHh= HttpContext.Session.GetString("IDCustomer");
+            var idKHh = HttpContext.Session.GetString("IDCustomer");
             List<LoaiHangViewModel> LoaiHangList = new List<LoaiHangViewModel>();
-       
+
             HttpResponseMessage response1 = await _client.GetAsync(_client.BaseAddress + $"/KhachHang/AddProductCart?idkh={idKHh}&idsp={idsp}&mausac={mausac}&dongia={dongia}&sl={sl}&size={size}");
             if (response1.IsSuccessStatusCode)
             {
@@ -58,12 +65,19 @@ namespace Project_FurnitureStore.Controllers
             }
             else
             {
-               
+
             }
             return View();
         }
 
 
 
+        public async Task<ActionResult> PersonalCart()
+        {
+
+
+            return View();
+            
+        }
     }
 }

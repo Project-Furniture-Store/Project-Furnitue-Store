@@ -202,19 +202,19 @@
 
 		</div>
 		<h2>Đánh giá của khách hàng</h2>
-		<div class="feedback-container">
+		//<div class="feedback-container">
 
-			<div class="rating">
+		//	<div class="rating">
 
-				<span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-			</div>
-			<div class="detail">
-				<p><strong>Khách hàng:</strong> @item.DanhGia.KhachHangFeeback</p>
-				<p><strong>Chi tiết:</strong> @item.DanhGia.ChiTiet</p>
+		//		<span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+		//	</div>
+		//	<div class="detail">
+		//		<p><strong>Khách hàng:</strong> @item.DanhGia.KhachHangFeeback</p>
+		//		<p><strong>Chi tiết:</strong> @item.DanhGia.ChiTiet</p>
 
-				<img src="Hinh" alt="Hình sản phẩm">
-			</div>
-		</div>
+		//		<img src="Hinh" alt="Hình sản phẩm">
+		//	</div>
+		//</div>
 
 			
 
@@ -247,8 +247,8 @@
 											
 										}
 										else if (ss == "") // chưa đăng nhập => (idsp, mau, dongia,soluong, kichthuoc, link)
-										{
-											alert("2");
+										{alert("V2");
+											
 											var currentUrll = window.location.href;
 											var linkk = document.getElementById("sendUrll");
 											var url = "@Url.Action("Login", "Account")";
@@ -265,28 +265,24 @@
 													url += "&size=" + kichthuoc;
 
 												}
-												//if (mausac != null) {
-												//	alert(mauSacDuocChon);
-												//	url += "&mausac=" + mauSacDuocChon;
-												//}
-												//if (dongia != null) {
-												//	url += "&dongia=" + dongia;
-												//}
-												//if (sl != null) {
-												//	url += "&sl=" + soLuong;
-												//}
-												//if (size != null) {
-												//	url += "&size=" + kichthuoc;
-												//}
-
 												link.href = url;
 										}
 										else if (ss != "")// đã đăng nhập => (idsp, mau, dongia,soluong, kichthuoc)
-										{
-											alert("3");
-											var currentUrll = window.location.href;
-		var linkk = document.getElementById("sendUrll");
-		linkk.href = "@Url.Action("Login", "Account")?currentUrl=" + encodeURIComponent(currentUrll);
+										{alert("V3");
+											
+											var currentUrll3 = window.location.href;
+											var linkk3 = document.getElementById("sendUrll");
+											var id = document.getElementById("idd").innerHTML;
+												var dongia = document.getElementById("dongiaa").innerHTML;
+												var kichthuoc = document.getElementById("sizee").innerHTML;
+											var url3 = "@Url.Action("ThemGioHang", "Cart")";
+												url3 += "?idsp=" + id;
+												url3 += "&mausac=" + mauSacDuocChon;
+												url3 += "&dongia=" + dongia;
+												url3 += "&sl=" + soLuong;
+												url3 += "&size=" + kichthuoc;
+												url3 += "&url=" + encodeURIComponent(currentUrll3);
+												linkk3.href = url3;
 											
 										}
 

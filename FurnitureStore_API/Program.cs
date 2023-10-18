@@ -12,6 +12,7 @@ builder.Services.AddScoped<ICrudOperationDL_SanPham, CrudSanPhamCollectionDL>();
 builder.Services.AddScoped<ICrudOperationDL_DonHang, CrudDonHangCollectionDL>();
 builder.Services.AddScoped<ICrudOperationDL_FlashSale, CrudFlashSaleCollectionDL>();
 builder.Services.AddScoped<ICrudOperationDL_KhachHang, CrudKhachHangCollectionDL>();
+builder.Services.AddScoped<ICrudOperationDL_KhuyenMai, CrudKhuyenMaiCollectionDL>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+    <div class=" bg-white-950 flex max-h-[510]">
+        <div class="menu w-[200px] ">
+
+            <ul>
+                <li class="active" id="cartTab"><i class="fa-solid fa-house-user"></i> Cart</li>
+                <li id="personalTab"><i class="fa-regular fa-user"></i> Personal</li>
+                <li id="orderTab"><i class="fa-solid fa-heart"></i> Order</li>
+            </ul>
+            <ul>
+                <li><i class="fa-brands fa-tiktok"></i> Tiktok</li>
+                <li><i class="fa-brands fa-facebook"></i> Facebook</li>
+                <li><i class="fa-brands fa-instagram"></i> Instagram</li>
+            </ul>
+
+
+        </div>
+
+        @RenderBody()
+
+@*
+       <div id="cartComponent">
+            @await Component.InvokeAsync("PersonalCart")
+        </div>
+        <div id="personalComponent" style="display:none;">
+            @await Component.InvokeAsync("Personal")
+        </div>
+        <div id="orderComponent" style="display:none;">@*
+                @await Component.InvokeAsync("Order")
+        </div>
+        *@
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script>
+
+    document.getElementById("cartTab").addEventListener("click", function() {
+    document.getElementById("cartComponent").style.display = "block";
+    document.getElementById("personalComponent").style.display = "none";
+    document.getElementById("orderComponent").style.display = "none";
+});
+
+document.getElementById("personalTab").addEventListener("click", function() {
+    document.getElementById("cartComponent").style.display = "none";
+    document.getElementById("personalComponent").style.display = "block";
+    document.getElementById("orderComponent").style.display = "none";
+});
+
+document.getElementById("orderTab").addEventListener("click", function() {
+    document.getElementById("cartComponent").style.display = "none";
+    document.getElementById("personalComponent").style.display = "none";
+    document.getElementById("orderComponent").style.display = "block";
+});
+</script>*@

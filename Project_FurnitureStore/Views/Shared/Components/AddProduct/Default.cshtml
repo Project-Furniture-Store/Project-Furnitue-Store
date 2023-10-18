@@ -1,0 +1,122 @@
+﻿@{
+	 var khuyenMaiList =TempData["KhuyenMailist"] as List<KhuyenMaiViewModel>;
+	  var loaiHangList =TempData["LoaiHanglist"] as List<LoaiHangViewModel>;
+}
+
+
+<div class="flex-1 p-10 w-[1000px]">
+	<div class="bg-white rounded-lg p-8  ">
+		<h1 class="text-2xl font-semibold mb-6 text-gray-800">Đăng Sản Phẩm Mới</h1>
+		<form>
+			<div class="flex mb-4">
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Tên sản phẩm: </label>
+					<input type="text" id="productName" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Đơn giá</label>
+					<input type="text" id="productDonGia" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Màu Sắc:</label>
+					<input type="text" id="productColor" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+
+			<div class="mb-4">
+				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-description">Miêu Tả</label>
+				<textarea class="w-full border rounded py-2 px-3 text-gray-700 h-32 focus:outline-none focus:ring focus:border-blue-500" id="product-description"></textarea>
+			</div>
+
+
+			<div  class="flex mb-4">
+				
+			
+				<div class="w-1/2 pr-2">
+					<label class="block text-gray-700 text-sm font-medium mb-2" for="product-image">Hình Ảnh</label>
+				<input class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-image" type="file">
+				</div>
+
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Kích thước</label>
+					<input type="text" id="productSize" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+			<div class="mb-4">
+				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-promotion">Khuyến Mãi</label>
+				<select class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-promotion">
+					
+					@foreach (var item in khuyenMaiList)
+					{
+						<option value="">@item.TenKhuyenMai</option>
+					}
+				</select>
+			</div>
+			<div class="flex mb-4">
+				<div class="w-1/2 pr-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Nhà cung cấp</label>
+					<input type="text" id="productSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Địa chỉ</label>
+					<input type="text" id="productAddrSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+				<div class="w-1/2 pl-2">
+					<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+					<input type="text" id="phoneSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+				</div>
+			</div>
+
+
+			<div class="mb-4">
+				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-type">Loại</label>
+				<select class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-type">
+					@foreach (var item in loaiHangList)
+					{
+						<option value="">@item.tenLoai</option>
+					}
+					<!-- Thêm các loại khác tại đây -->
+				</select>
+			</div>
+			<div class="flex items-center justify-end">
+				<button id="submit-button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500" type="button">
+					Đăng Sản Phẩm
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var submitButton = document.getElementById('submit-button');
+
+    submitButton.addEventListener('click', function() {
+        var tenSanPham = document.getElementById('productName').value;
+        var donGia = document.getElementById('productDonGia').value;
+        var mauSac = document.getElementById('productColor').value;
+        var mieuTa = document.getElementById('product-description').value;
+        var kichThuoc = document.getElementById('productSize').value;
+        var khuyenMai = document.getElementById('product-promotion').value;
+        var nhaCungCap = document.getElementById('productSup').value;
+        var diaChi = document.getElementById('productAddrSup').value;
+        var phone = document.getElementById('phoneSup').value;
+        var loai = document.getElementById('product-type').value;
+
+       
+    });
+});
+
+</script>
+
+
+<hr />
+
+<h3 class="ml-[42px]">Your product</h3>
+<div class="flex">
+	 <input class="w-[100px]" type="text" name="q" placeholder="Tìm kiếm..." style="flex: 1; padding: 5px;">
+        <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: #fff; border: none;">Tìm kiếm</button>
+</div>
+<br />
+@await Component.InvokeAsync("ListProduct")
+<br />

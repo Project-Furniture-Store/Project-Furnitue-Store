@@ -1,8 +1,10 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

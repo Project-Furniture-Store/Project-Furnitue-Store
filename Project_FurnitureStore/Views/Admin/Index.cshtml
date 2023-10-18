@@ -1,0 +1,27 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="flex">
+	<div class=" bg-cyan-700  ">
+		<div class="menu w-[250px] ">
+
+			<ul>
+				<li class="active" id="ProductTab"> Product</li>
+				<li id="AllOrderTab">AllOrder</li>
+				<li id="VoucherTab">Voucher</li>
+				<li id="FlashSaleTab">FlashSale</li>
+				<li id="CoinTab">Coin</li>
+			</ul>
+
+
+		</div>
+
+
+
+
+	</div>
+	<div>@RenderBody() </div>
+</div>
+
+

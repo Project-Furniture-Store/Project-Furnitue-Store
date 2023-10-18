@@ -8,5 +8,6 @@ namespace FurnitureStore_API.DataAccessLayer
         public Task<InsertLoaiHangResponse> InsertLoaiHang(InsertLoaiHangResquest request);
         public Task<GetLoaiHangResponse> GetLoaiHang();
         public Task<GetLoaiHangResponse> GetLoaiHangByID(string id);
+        public Task<GetLoaiHangResponse> GetLoaiHangByName(string name);
     }
 }

@@ -16,10 +16,9 @@ namespace Project_FurnitureStore.Models
         public string KichCo { get; set; }
         public string Hinh { get; set; }
 
-        public string KhuyenMai { get; set; } //idkm
 
         public Supplier NhaCungCap { get; set; }
-        public Rating DanhGia { get; set; }
+        public List<Rating> DanhGia { get; set; }
         public int GoldCoin { get; set; }
         public string Loai { get; set; }
     }

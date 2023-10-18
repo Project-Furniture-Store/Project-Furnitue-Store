@@ -109,5 +109,73 @@ namespace FurnitureStore_API.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult> SetProduct(InsertSanPhamResquest Sanpham) // get product by id
+        {
+            // thông báo
+            InsertSanPhamResponse response = new InsertSanPhamResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.SetProduct(Sanpham);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
+
+        //[HttpPut]
+        //public async Task<ActionResult> UpdateProductbyID(InsertSanPhamResquest Sanpham) // get product by id
+        //{
+        //    // thông báo
+        //    InsertSanPhamResponse response = new InsertSanPhamResponse();
+
+        //    try
+        //    {
+        //        // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+        //        response = await _crudOperationDL.UpdateProductbyID(Sanpham);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+        //        response.IsSuccess = false;
+        //        response.Message = "Error" + ex.Message;
+        //    }
+
+        //    // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+        //    return Ok(response);
+        //}
+
+
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateProductbyIDPatch(UpdateProductPatchResquest Sanpham) // get product by id
+        {
+            // thông báo
+            UpdateProductPatchResponse response = new UpdateProductPatchResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.UpdateProductbyIDPatch(Sanpham);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
     }
 }
