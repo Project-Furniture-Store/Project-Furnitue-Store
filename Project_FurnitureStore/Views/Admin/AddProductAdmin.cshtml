@@ -7,7 +7,25 @@
 @{
 	 var khuyenMaiList =TempData["KhuyenMailist"] as List<KhuyenMaiViewModel>;
 	  var loaiHangList =TempData["LoaiHanglist"] as List<LoaiHangViewModel>;
+	
+
 }
+
+<script>
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <text>
+            alert('@ViewBag.SuccessMessage');
+        </text>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <text>
+            alert('@ViewBag.ErrorMessage');
+        </text>
+    }
+</script>
 
 
 <div class="flex-1 px-10 w-[1000px]">

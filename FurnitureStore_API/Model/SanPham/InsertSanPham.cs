@@ -31,7 +31,7 @@ namespace FurnitureStore_API.Model.SanPham
         public int? GoldCoin { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId? Loai { get; set; }
+        public string? Loai { get; set; }
 
     }
 

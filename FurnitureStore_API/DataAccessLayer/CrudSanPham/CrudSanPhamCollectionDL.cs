@@ -29,9 +29,33 @@ namespace FurnitureStore_API.DataAccessLayer
 
         }
 
+        public async Task<DeleteProductbyIDResponse> DeleteProductbyID(string id)
+        {
+            DeleteProductbyIDResponse response = new DeleteProductbyIDResponse();
 
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
 
-        
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                var result = await _mongoCollection.DeleteOneAsync(x => x.id == id);
+                if (!result.IsAcknowledged)
+                {
+                    response.Message = "ErrorL id not found/ nnot delete";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
 
         public async Task<GetSanPhamResponse> GetSanPham()
         {
@@ -75,7 +99,7 @@ namespace FurnitureStore_API.DataAccessLayer
             {
                 response.data = new List<InsertSanPhamResquest>();
                 ObjectId categoryIdObject = ObjectId.Parse(categoryId);
-                response.data = await _mongoCollection.Find(x => (x.Loai== categoryIdObject)).ToListAsync();
+                response.data = await _mongoCollection.Find(x => (x.Loai== categoryId)).ToListAsync();
                 if (response.data.Count == 0)
                 {
                     response.Message = "No record found";
@@ -177,35 +201,7 @@ namespace FurnitureStore_API.DataAccessLayer
             throw new NotImplementedException();
         }
 
-        //public async Task<InsertSanPhamResponse> UpdateProductbyID(InsertSanPhamResquest Sanpham)
-        //{
-        //    InsertSanPhamResponse response = new InsertSanPhamResponse();
 
-        //    // Khởi tạo giá trị mặc định cho phản hồi
-        //    response.IsSuccess = true;
-        //    response.Message = "Data Successfully";
-
-        //    try
-        //    {
-        //        GetSanPhamResponse response1 = await GetSanPhambyId(Sanpham.id);
-
-        //        var result= await _mongoCollection.ReplaceOneAsync(x => x.id == Sanpham.id, Sanpham);
-        //        if(!result.IsAcknowledged)
-        //        {
-        //            response.Message = "ErrorL id not found/ not update";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
-        //        response.IsSuccess = false;
-        //        response.Message = "Error" + ex.Message;
-        //    }
-
-        //    // Trả về phản hồi
-        //    return response;
-
-        //}
 
         public async Task<UpdateProductPatchResponse> UpdateProductbyIDPatch(UpdateProductPatchResquest Sanpham1)
         {
@@ -226,7 +222,7 @@ namespace FurnitureStore_API.DataAccessLayer
                     { "MauSac", new BsonArray(Sanpham1.MauSac) },
                     { "KichCo", Sanpham1.KichCo },
                     { "Hinh", Sanpham1.Hinh },
-                    { "Supplier", new BsonDocument
+                    { "NhaCungCap", new BsonDocument
                         {
                             { "TenNCC", Sanpham1.NhaCungCap.TenNCC },
                             { "DiaChi", Sanpham1.NhaCungCap.DiaChi },
@@ -235,7 +231,7 @@ namespace FurnitureStore_API.DataAccessLayer
                         }
                     },
                     { "GoldCoin", Sanpham1.GoldCoin },
-                    { "Loai", Sanpham1.Loai }
+                    { "Loai", new BsonObjectId( Sanpham1.Loai) }
                 };
 
                 var update = new BsonDocument("$set", filter);

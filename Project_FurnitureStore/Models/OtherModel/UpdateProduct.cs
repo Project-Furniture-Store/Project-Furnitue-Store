@@ -2,10 +2,12 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace FurnitureStore_API.Model.SanPham
+namespace Project_FurnitureStore.Models.OtherModel
 {
-    public class UpdateProductPatchResquest
+    public class UpdateProduct
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
 
         public string TenSP { get; set; }
@@ -18,10 +20,13 @@ namespace FurnitureStore_API.Model.SanPham
         public string KichCo { get; set; }
         public string Hinh { get; set; }
 
+
+        [BsonElement("NhaCungCap")]
         public Supplierr NhaCungCap { get; set; }
-        
+
         public int GoldCoin { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Loai { get; set; }
     }
 
@@ -34,9 +39,4 @@ namespace FurnitureStore_API.Model.SanPham
     }
 
 
-    public class UpdateProductPatchResponse
-    {
-        public bool IsSuccess { get; set; }
-        public string Message { get; set; }
-    }
 }

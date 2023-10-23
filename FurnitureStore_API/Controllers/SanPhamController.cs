@@ -177,5 +177,28 @@ namespace FurnitureStore_API.Controllers
             // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
             return Ok(response);
         }
+
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteProductbyID(string id) // get product by id
+        {
+            // thông báo
+            DeleteProductbyIDResponse response = new DeleteProductbyIDResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.DeleteProductbyID(id);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
     }
 }

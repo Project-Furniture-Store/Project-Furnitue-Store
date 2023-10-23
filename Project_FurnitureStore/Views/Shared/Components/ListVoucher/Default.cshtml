@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Project_FurnitureStore.Models.KhuyenMaiViewModel>
+
+
+@using Microsoft.AspNetCore.Http;
+
+@{
+	var sessionCustomer = ViewContext.HttpContext.Session.GetString("IDCustomer");
+
+}
+
+
+<div class="px-2 flex grid grid-cols-4 gap-[10px]">
+	@{
+		@foreach (var item in Model)
+		{
+		
+			@if (sessionCustomer != "admin")
+			{
+				<div class="bg-white border-2 border-black h-[240px] w-full rounded-lg p-[3px]">
+					<img class="w-full h-[200PX] rounded-lg" src="~/Images/GheElisa.jpeg">
+					<div class="font-Raleway text-[25px] translate-x-6 flex justify-center">
+						@if (item.TenKhuyenMai.Length > 16)
+						{
+							@item.TenKhuyenMai.Substring(0, 16)
+						}
+						else
+						{
+							@item.TenKhuyenMai
+						}
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="bg-white border-2 border-black h-[324px] w-full rounded-lg p-[3px] ml-[42px]">
+					<img class="w-full h-[200PX] rounded-lg" src="~/Images/GheElisa.jpeg">
+					<div class="font-Raleway text-[18px] translate-x-6">
+						@if (item.TenKhuyenMai.Length > 20)
+						{
+							@item.TenKhuyenMai.Substring(0, 16)
+						}
+						else
+						{
+							@item.TenKhuyenMai
+						}
+					</div>
+					<div class="font-semibold  ">
+						@if (item.DieuKien.Length > 50)
+						{
+							@item.DieuKien.Substring(0, 50)
+						}
+						else
+						{
+							@item.DieuKien
+						}
+					</div>
+					<div class="flex text-[8px] ">
+					<div class="text-[8px]">Start: @item.NgayKhuyenMai </div>-
+					<div class="text-[8px]">End: @item.NgayKetThuc</div>
+					</div>
+					
+
+					<div class="flex gap-1 justify-center">
+
+					<a href="@Url.Action("AddProductVoucher", "Admin", new { idKhuyenMai = @item._id })"><div class="h-\[20PX\] w-[100px] bg-cyan-500 flex justify-center rounded-full font-semibold"> Add product </div></a>	
+						<div class="h-\[20PX\] w-[100px] bg-yellow-400 flex justify-center rounded-full font-semibold"> Modify </div>
+					</div>
+
+
+				</div>
+
+
+			}
+		}
+	}
+
+</div>

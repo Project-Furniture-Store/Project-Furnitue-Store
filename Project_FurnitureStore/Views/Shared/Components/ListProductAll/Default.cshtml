@@ -48,7 +48,7 @@
 			else
 			{
 
-
+				<div id="idmasp" style="display:none">@item.id</div>
 				<div class="bg-white border-2 border-black h-[380px] w-full rounded-lg p-[10px]">
 					<img class="w-full h-[200PX]    rounded-lg" src="./Images/GheElisa.jpeg">
 					<div class="flex items-center ">
@@ -75,30 +75,21 @@
 						<div class="translate-x-6  inline-block ring-2 ring-white bg-code3 rounded-full h-4 w-5"></div>
 					</div>
 					<div class="flex pt-2">
-						<button class=" bg-rose-600 text-center  h-[30px]   pl-2  pr-1  w-full">Delete</button>
-						<button class="update bg-amber-400 text-center  h-[30px] pl-1 pr-2   w-full">Update</button>
+						<a class="ml-2" href="#" onclick="confirmDelete('@item.id')"><button class=" bg-rose-600 text-center  h-[30px]   pl-2  pr-1  w-full">Delete</button></a>
+						<a class="ml-1" href="@Url.Action("updateProduct", "Admin",new { idSanPham = @item.id })"><button class="update bg-amber-400 text-center  h-[30px] pl-1 pr-2   w-full">Update</button></a>
 
 					</div>
 
+					<script>
+						function confirmDelete(id) {
+							var result = confirm("Bạn có muốn xóa mục này không?");
+							if (result) {
+								window.location.href = '@Url.Action("DeleteProductByID", "Admin")?id=' + id;
+							}
+						}
+					</script>
 				</div>
 
-				<div id="huhu" style="display:none">
-					<div id="data-productid">@item.id</div>
-					<div id="data-productTenSP">@item.TenSP</div>
-					<div id="data-productDonGia">@item.DonGia</div>
-					<div id="data-productGoldCoin">@item.GoldCoin</div>
-					<div id="data-productHinh">@item.Hinh</div>
-					<div id="data-productKichCo">@item.KichCo</div>
-					<div id="data-productMieuTa">@item.MieuTa</div>
-					<div id="data-productDiaChi">@item.NhaCungCap.DiaChi</div>
-					<div id="data-productSDT">@item.NhaCungCap.SDT</div>
-					<div id="data-productTenNCC">>@item.NhaCungCap.TenNCC</div>
-
-					@foreach (var color in item.MauSac)
-					{
-						<div id="data-productMauSac">@color</div>
-					}
-				</div>
 
 
 
@@ -119,106 +110,3 @@
 
 
 
-
-
-
-<div class="overlay" id="overlay"></div>
-
-<div id="SuaThongTinSP" class="max-h-[500px]" style="display:none; max-height: 100vh; overflow-y: auto;">
-	<div class="bg-white rounded-lg px-8 max-h-[700px] ">
-
-		<h1 class="text-2xl font-semibold mb-6 text-gray-800">Chỉnh sửa thông tin</h1>
-
-
-		<div class="flex mb-4">
-			<div class="w-1/2 pr-2">
-				<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">
-					Tên sản phẩm: /label>
-					<input type="text" id="productName" value="" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-			<div class="w-1/2 pr-2">
-				<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Đơn giá</label>
-				<input type="text" id="productDonGia" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-			<div class="w-1/2 pl-2">
-				<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Màu Sắc:</label>
-				<input type="text" id="productColor" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-		</div>
-
-		<div class="mb-4">
-			<label class="block text-gray-700 text-sm font-medium mb-2" for="product-description">Miêu Tả</label>
-			<textarea class="w-full border rounded py-2 px-3 text-gray-700 h-32 focus:outline-none focus:ring focus:border-blue-500" id="product-description"></textarea>
-		</div>
-
-
-		<div class="flex mb-4">
-
-
-			<div class="w-1/2 pr-2">
-				<label class="block text-gray-700 text-sm font-medium mb-2" for="product-image">Hình Ảnh</label>
-				<input class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-image" type="file">
-			</div>
-
-			<div class="w-1/2 pr-2">
-				<label for="productColor" class="block text-gray-700 text-sm font-bold mb-2">Kích thước</label>
-				<input type="text" id="productSize" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-		</div>
-
-		<div class="flex mb-4">
-			<div class="w-1/2 pr-2">
-				<label for="productSup" class="block text-gray-700 text-sm font-bold mb-2">Nhà cung cấp</label>
-				<input type="text" id="productSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-			<div class="w-1/2 pl-2">
-				<label for="productAddrSup" class="block text-gray-700 text-sm font-bold mb-2">Địa chỉ</label>
-				<input type="text" id="productAddrSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-			<div class="w-1/2 pl-2">
-				<label for="phoneSup" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
-				<input type="text" id="phoneSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-			</div>
-		</div>
-
-		<div class="mb-4">
-			<label class=" text-gray-700 text-sm font-medium mb-2" for="product-type">Loại</label>
-			<select class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="productloai">
-				<option id="idloai" value=""></option>
-				@foreach (var item1 in loaiHangList)
-				{
-					<option value="@item1.id">@item1.tenLoai</option>
-				}
-				<!-- Thêm các loại khác tại đây -->
-			</select>
-		</div>
-
-
-		<div class="flex items-center justify-end">
-			<button id="submit-button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500" type="button">
-				Cập nhật
-			</button>
-
-			<button id="close-button" class=" ml-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500" type="button">
-				Hủy
-			</button>
-		</div>
-		<br />
-	</div>
-
-
-</div>
-
-<script>
-		document.querySelectorAll(".update").forEach(function(button) {
-			button.addEventListener("click", function() {
-				document.getElementById("SuaThongTinSP").style.display = "block";
-				document.getElementById("overlay").style.display = "block";
-			});
-		});
-
-		document.getElementById("close-button").addEventListener("click", function() {
-			document.getElementById("SuaThongTinSP").style.display = "none";
-			document.getElementById("overlay").style.display = "none";
-		});
-</script>

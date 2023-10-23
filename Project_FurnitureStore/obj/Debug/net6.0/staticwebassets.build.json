@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mXtGJS2iq097kZMRoH+pm8yVjjHJCYuBwGf9dx1r0Yg=",
+  "Hash": "ajcJFTD0TrI2w+AULa/QeHt6p4Qq8V79csesyRhdTuA=",
   "Source": "Project_FurnitureStore",
   "BasePath": "_content/Project_FurnitureStore",
   "Mode": "Default",
@@ -525,6 +525,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ptlamp.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\R.jpg",
+      "SourceId": "Project_FurnitureStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\",
+      "BasePath": "_content/Project_FurnitureStore",
+      "RelativePath": "Images/R.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\R.jpg"
     },
     {
       "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\slider.jpg",

@@ -70,6 +70,9 @@ namespace Project_FurnitureStore.Controllers
         }
 
 
+
+
+
         [HttpGet]
         public async Task<IActionResult> DetailProduct(string idProduct)
         {

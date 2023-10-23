@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Project_FurnitureStore.Models.KhuyenMaiViewModel>
+@{
+	ViewData["Title"] = "AddProductVoucher";
+	Layout = "~/Views/Admin/Index.cshtml";
+	var sanPhamList = TempData["KhuyenMaiProductlist"] as List<SanPhamViewModel>;
+	var phantram = 0;
+	@foreach (var item in Model)
+	{
+		phantram = int.Parse(@item.TienGiam);
+	}
+}
+
+
+<h3 class="ml-[42px]">Chi tiết khuyến mãi</h3>
+<div>
+	@{
+		@foreach (var item in Model)
+		{
+
+			<div class="flex">
+				<img class="w-[150px] h-[200PX] ml-[42px] rounded-lg" src="~/Images/GheElisa.jpeg">
+				<div class="ml-[20px]">
+					<div>
+						<div>Khuyến mãi: @item.TenKhuyenMai</div>
+						<div>Date: @item.NgayKhuyenMai - @item.NgayKetThuc</div>
+						<div>Chi tiết: @item.TenKhuyenMai</div>
+						<div>Giảm: @item.TienGiam %</div>
+					</div>
+				</div>
+			</div>
+		}
+
+
+	}
+</div>
+<h3 class="ml-[42px]">Các sản phẩm tương ứng</h3>
+
+<div class="px-3 flex grid grid-cols-3 gap-[10px]">
+	@{
+		foreach (var item in sanPhamList)
+		{
+
+			<a href="@Url.Action("DetailProduct","Product", new{ @idProduct=item.id})">
+				<div class="bg-white border-2 border-black h-[350px] w-[250px] rounded-lg p-[5px]">
+					<img class="w-full h-[200PX]    rounded-lg" src="./Images/GheElisa.jpeg">
+					<div id="idKhuyenmai" style="display:none"> @item.id</div>
+					<div class="font-Raleway text-[15px] translate-x-6 flex items-center">
+						@if (item.TenSP.Length > 27)
+						{
+							@item.TenSP.Substring(0, 27)
+						}
+						else
+						{
+							@item.TenSP
+						}
+						<input class="ml-auto product-checkbox h-[17px] w-[17px] mt-[3px]" type="checkbox" value="@item.id" />
+					</div>
+					<div class="flex">
+						@{
+							var giaSauGiam = Convert.ToDecimal(item.DonGia) - phantram;
+							<div class=" font-bold red-text translate-x-6 ">    @string.Format("{0:C0}", giaSauGiam)  </div>
+						}
+						<div class="mt-[5px] font-bold black-text translate-x-6 line-through text-[10px] ">@item.DonGia.ToString("C0")</div>
+
+
+					</div>
+
+					<div class="mt-3 flex -space-x-2 overflow-hidden">
+						<div class="translate-x-6  inline-block ring-2 ring-white bg-code2 rounded-full h-4 w-5"></div>
+						<div class="translate-x-6  inline-block ring-2 ring-white bg-code1 rounded-full h-4 w-5"></div>
+						<div class="translate-x-6  inline-block ring-2 ring-white bg-code3 rounded-full h-4 w-5"></div>
+					</div>
+					<button class="buy-button text-center  h-[30px]   px-5 w-full">See More</button>
+				</div>
+			</a>
+
+		}
+	}
+</div>
+
+
+
+
+<div class="flex ml-[700px]">
+	<div class="flex items-center justify-center h-[40px] w-[40px] rounded-full bg-cyan-600 text-lg font-medium ">+</div>
+	<div class="mt-[5px] flex items-center justify-center h-[30px] w-[70px] rounded-full bg-rose-600 ml-[10px] font-medium delete-button">Delete</div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lắng nghe sự kiện click của nút "Delete"
+        document.querySelector(".delete-button").addEventListener("click", async function() {
+			
+
+            var checkedCheckboxes = document.querySelectorAll(".product-checkbox:checked");
+            var selectedIds = Array.from(checkedCheckboxes).map(function(checkbox) {
+                return checkbox.value;
+            });
+			var idkhuyenmai = document.getElementById('idKhuyenmai').innerText;
+		 var url = `/Admin/EXAddProductVoucher?idKhuyenMai=${idkhuyenmai}&idSPs=${JSON.stringify(selectedIds)}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    alert("Đã gửi yêu cầu thành công!");
+                } else {
+                    alert("Có lỗi xảy ra khi gửi yêu cầu.");
+                }
+            } catch (error) {
+                alert("Có lỗi xảy ra khi gửi yêu cầu: " + error.message);
+            }
+        });
+    });
+</script>
+
+<hr />
+

@@ -498,6 +498,7 @@ C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bi
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Humanizer.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\MessagePack.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\MessagePack.Annotations.dll
+C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Microsoft.Build.dll
@@ -531,6 +532,7 @@ C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bi
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\MongoDB.Driver.Core.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\NuGet.Common.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\NuGet.Configuration.dll
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\NuGet.DependencyResolver.Core.dll
@@ -724,5 +726,3 @@ C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\ob
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\obj\Debug\net6.0\Project_FurnitureStore.pdb
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\obj\Debug\net6.0\Project_FurnitureStore.genruntimeconfig.cache
 C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\obj\Debug\net6.0\ref\Project_FurnitureStore.dll
-C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\admin\Documents\GitHub\Project-Furnitue-Store\Project_FurnitureStore\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

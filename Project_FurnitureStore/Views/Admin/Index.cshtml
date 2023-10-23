@@ -7,8 +7,9 @@
 		<div class="menu w-[250px] ">
 
 			<ul>
-				<li class="active" id="ProductTab"> Product</li>
-				<li id="AllOrderTab">AllOrder</li>
+				<li class="active text-xl bg-white"  id="ProductTab">ADMIN</li>
+				<a href="@Url.Action("AddProductAdmin", "Admin")" > <li class="active" id="ProductTab"> Product</li> </a>
+				<a href="@Url.Action("AddKhuyenMai", "Admin")"><li id="AllOrderTab">Voucher</li></a>
 				<li id="VoucherTab">Voucher</li>
 				<li id="FlashSaleTab">FlashSale</li>
 				<li id="CoinTab">Coin</li>

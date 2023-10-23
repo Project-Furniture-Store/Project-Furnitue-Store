@@ -2,7 +2,7 @@
 {
     public class KhuyenMaiViewModel
     {
-        public string id { get; set; }
+        public string _id { get; set; }
         public string TenKhuyenMai { get; set; }
         public string Hinh { get; set; }
         public string NgayKhuyenMai { get; set; }

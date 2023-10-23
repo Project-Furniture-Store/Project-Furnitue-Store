@@ -1,0 +1,193 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<Project_FurnitureStore.Models.SanPhamViewModel>
+@{
+	ViewData["Title"] = "updateProduct";
+	Layout = "~/Views/Admin/Index.cshtml";
+	var loaiHangList = TempData["LoaiHanglist"] as List<LoaiHangViewModel>;
+	   if (TempData.ContainsKey("SuccessMessage"))
+    {
+        ViewBag.SuccessMessage = TempData["SuccessMessage"];
+    }
+
+    if (TempData.ContainsKey("ErrorMessage"))
+    {
+        ViewBag.ErrorMessage = TempData["ErrorMessage"];
+    }
+}
+
+
+
+<div class="flex-1 px-10 w-[1000px]">
+	<div class="bg-white rounded-lg px-8  ">
+		<h1 class="text-2xl font-semibold mb-6 text-gray-800">Chỉnh sửa thông tin sản phẩm</h1>
+		@{
+			foreach (var item in Model)
+			{
+				<div class="flex mb-4">
+					<div class="h-[250px] w-[200px] mr-4">
+						<img id="preview-image" src="~/Images/GheElisa.jpeg" alt="Mo ta hinh anh" class="h-full w-full object-cover">
+					</div>
+
+					<div class="h-[250px] w-full">
+						<div class="mb-2 flex">
+							<label for="productName" class=" w-[150px] block text-gray-700 text-sm font-bold mr-2">Tên sản phẩm: </label>
+							<input type="text" id="productName" value="@item.TenSP" name="productName" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+						</div>
+
+						<div class="mb-2 flex">
+							<label for="productDonGia" class=" w-[150px] block text-gray-700 text-sm font-bold mr-2">Đơn giá</label>
+							<input type="text" id="productDonGia" value="@item.DonGia" name="productDonGia" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+						</div>
+
+						@{
+							var mau = "";
+							foreach (var color in item.MauSac)
+							{
+								mau += color + "/";
+							}
+
+							if (!string.IsNullOrEmpty(mau) && mau.EndsWith("/"))
+							{
+								mau = mau.Substring(0, mau.Length - 1);
+							}
+						}
+
+						<div class="flex mb-2">
+							<label for="productColor" class=" w-[150px] block text-gray-700 text-sm font-bold mr-2">Màu Sắc:</label>
+							<input value="@mau" type="text" id="productColor" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+						</div>
+
+						
+					<div style="display:" id="TenHinh">@item.Hinh</div>
+					<div style="display:" id="productID">@item.id</div>
+						<div class="flex mb-2">
+						<label class=" w-[150px] block text-gray-700 text-sm font-medium mb-2" for="product-image">Hình Ảnh</label>
+						<input class="w-full border rounded  text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-image" type="file" onchange="displaySelectedImage()">
+					
+						
+						
+						</div>
+
+					<div class="mb-2 flex">
+							<label for="productSize" class=" w-[150px] block text-gray-700 text-sm font-bold mr-2">Kích thước</label>
+							<input type="text" id="productSize" value="@item.KichCo" name="productSize" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+						</div>
+
+
+					</div>
+
+
+				</div>
+
+				<div class="mb-4">
+					<label class="block text-gray-700 text-sm font-medium mb-2" for="product-description">Miêu Tả</label>
+					<textarea class="w-full border rounded py-2 px-3  text-gray-700 h-32 focus:outline-none focus:ring focus:border-blue-500" id="product-description"> @item.MieuTa</textarea>
+				</div>
+
+
+				<div class="flex mb-4">
+
+
+					
+
+					<script>
+    function displaySelectedImage() {
+        const input = document.getElementById('product-image');
+        const previewImage = document.getElementById('preview-image');
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            previewImage.src = reader.result;
+
+            // Cập nhật nội dung của div có id="TenHinh"
+            const tenHinhDiv = document.getElementById('TenHinh');
+            tenHinhDiv.textContent = file.name; // Lấy tên của file
+        }
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
+					
+				</div>
+
+				<div class="flex mb-4">
+					<div class="w-1/2 pr-2">
+						<label for="productSup" class="block text-gray-700 text-sm font-bold mb-2">Nhà cung cấp</label>
+						<input value="@item.NhaCungCap.TenNCC" type="text" id="productSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+					<div class="w-1/2 pl-2">
+						<label for="productAddrSup" class="block text-gray-700 text-sm font-bold mb-2">Địa chỉ</label>
+						<input value="@item.NhaCungCap.DiaChi" type="text" id="productAddrSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+					<div class="w-1/2 pl-2">
+						<label for="phoneSup" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+						<input value="@item.NhaCungCap.SDT" type="text" id="phoneSup" name="productColor" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+				</div>
+
+
+				<div class="mb-4">
+					<label class="block text-gray-700 text-sm font-medium mb-2" for="product-type">Loại</label>
+					<select class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="productloai">
+						@foreach (var loai in loaiHangList)
+						{
+							if (@loai.id == @item.id)
+							{
+								<option selected value="@loai.id">@loai.tenLoai</option>
+							}
+							<option selected value="@loai.id">@loai.tenLoai</option>
+						}
+				</select>
+				</div>
+			}
+		}
+		<div class="flex items-center justify-end">
+    <a id="sendUrll" onclick="xuLyClick()">
+        <div class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500">
+            Lưu
+        </div>
+    </a>
+</div>
+
+	</div>
+</div>
+
+
+
+<script>
+    function xuLyClick() {
+        var productIdDiv = document.getElementById('productID');
+        var productID = productIdDiv.textContent;
+
+        var tenSanPham = document.getElementById('productName').value;
+        var donGia = document.getElementById('productDonGia').value;
+        var mauSac = document.getElementById('productColor').value;
+        var mieuTa = document.getElementById('product-description').value;
+        var kichThuoc = document.getElementById('productSize').value;
+
+        var productImageDiv = document.getElementById('TenHinh');
+        var productImageName = productImageDiv.textContent;
+
+        var nhaCungCap = document.getElementById('productSup').value;
+        var diaChi = document.getElementById('productAddrSup').value;
+        var phone = document.getElementById('phoneSup').value;
+        var productTypeSelect = document.getElementById('productloai').value;
+
+        var linkk3 = document.getElementById("sendUrll");
+        var url3 = "/Admin/UpdateProductEX" + '?id=' + encodeURIComponent(productID)
+            + '&tensp=' + encodeURIComponent(tenSanPham)
+            + '&mieutta=' + encodeURIComponent(mieuTa)
+            + '&dongia=' + encodeURIComponent(donGia)
+            + '&mausac=' + encodeURIComponent(mauSac)
+            + '&kichco=' + encodeURIComponent(kichThuoc)
+            + '&hinh=' + encodeURIComponent(productImageName)
+            + '&nhacc=' + encodeURIComponent(nhaCungCap)
+            + '&dcncc=' + encodeURIComponent(diaChi)
+            + '&sdt=' + encodeURIComponent(phone)
+            + '&loai=' + encodeURIComponent(productTypeSelect);
+        linkk3.href = url3;
+    }
+</script>
+
