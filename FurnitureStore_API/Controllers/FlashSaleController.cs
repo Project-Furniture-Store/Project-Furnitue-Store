@@ -23,7 +23,7 @@ namespace FurnitureStore_API.Controllers
         public async Task<ActionResult> GetFlashSaleFlashSale() // get all product in data
         {
             // thông báo
-            GetListFlashSaleResponse response = new GetListFlashSaleResponse();
+            GetSanPhamResponse response = new GetSanPhamResponse();
 
             try
             {
@@ -41,6 +41,28 @@ namespace FurnitureStore_API.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult> CheckSaleFlashSale(string date) // get all product in data
+        {
+            // thông báo
+            GetFlashSaleResponse response = new GetFlashSaleResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.CheckSaleFlashSale(date);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetAllFlashSale() // get all product in data
@@ -142,6 +164,29 @@ namespace FurnitureStore_API.Controllers
             {
                 // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
                 response = await _crudOperationDL.GetProductFlashSale(idFlashSale);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateFlashSalebyIDPatch(UpdataFlashSaleRequest flashsale) // get product by id
+        {
+            // thông báo
+            UpdataFlashSaleResponse response = new UpdataFlashSaleResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.UpdateFlashSalebyIDPatch(flashsale);
             }
             catch (Exception ex)
             {

@@ -74,6 +74,37 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
+        public async Task<GetFlashSaleResponse> CheckSaleFlashSale(string date)
+        {
+            GetFlashSaleResponse response = new GetFlashSaleResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                // Thực hiện thêm dữ liệu vào MongoDB
+                response.data = new List<InsertFlashSaleResquest>();
+                response.data = await _mongoCollectioninti.Find(x => x.NgaySale== date).ToListAsync();
+                if (response.data.Count == 0)
+                {
+                    //  response.Message = "No record found";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+
+        }
+
         public async Task<GetFlashSaleResponse> DeleteProductIDFs(string fsId, List<string> idSPs)
         {
             GetFlashSaleResponse response = new GetFlashSaleResponse();
@@ -183,9 +214,9 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-        public async Task<GetListFlashSaleResponse> GetFlashSaleFlashSale()
+        public async Task<GetSanPhamResponse> GetFlashSaleFlashSale()
         {
-            GetListFlashSaleResponse response = new GetListFlashSaleResponse();
+            GetSanPhamResponse response = new GetSanPhamResponse();
 
             // Khởi tạo giá trị mặc định cho phản hồi
             response.IsSuccess = true;
@@ -195,19 +226,54 @@ namespace FurnitureStore_API.DataAccessLayer
             {
 
                 // Thực hiện thêm dữ liệu vào MongoDB
-                var currentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                var currentDate = DateTime.Now.ToString("yyyy-MM-dd");
 
                 var pipeline = new[]
-                {
-                    BsonDocument.Parse($"{{ $match: {{ Ngay: '{currentDate}' }} }}"),
-                    BsonDocument.Parse("{ $unwind: '$SanPhamSale' }"),
-                    BsonDocument.Parse("{ $lookup: { from: 'SANPHAM', localField: 'SanPhamSale', foreignField: '_id', as: 'SanPhamInfo' } }"),
-                    BsonDocument.Parse("{ $unwind: '$SanPhamInfo' }"),
-                    BsonDocument.Parse("{ $addFields: { PhanTramGiam: '$PhanTramGiam' } }"),
-                    BsonDocument.Parse("{ $project: { GioSale: '$KhungGio', SanPhamInfo: '$SanPhamInfo', PhanTramGiam: 1 } }")
+                  {
+                    BsonDocument.Parse($@"{{
+                        $match: {{
+                            NgaySale: '{currentDate}'
+                        }}
+                    }}"),
+                    BsonDocument.Parse(@"{
+                        $lookup: {
+                            from: 'SANPHAM',
+                            localField: 'SanPhamSale',
+                            foreignField: '_id',
+                            as: 'SanPhamInfo'
+                        }
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $unwind: '$SanPhamInfo'
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $replaceWith: '$SanPhamInfo'
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $project: {
+                            _id: 1,
+                            TenSP: 1,
+                            MieuTa: 1,
+                            DonGia: 1,
+                            MauSac: 1,
+                            KichCo: 1,
+                            Hinh: 1,
+                            'NhaCungCap.TenNCC': 1,
+                            'NhaCungCap.DiaChi': 1,
+                            'NhaCungCap.SDT': 1,
+                            'NhaCungCap.DonGiaCC': 1,
+                            'DanhGia.KhachHangFeeback': 1,
+                            'DanhGia.Rate': 1,
+                            'DanhGia.ChiTiet': 1,
+                            'DanhGia.Hinh': 1,
+                            'DanhGia.Video': 1,
+                            GoldCoin: 1,
+                            Loai: 1
+                        }
+                    }")
                 };
 
-                List<InsertListFlashSaleResquest> listsale = await _mongoCollection.Aggregate<InsertListFlashSaleResquest>(pipeline).ToListAsync();
+                List<InsertSanPhamResquest> listsale = await _mongoCollection.Aggregate<InsertSanPhamResquest>(pipeline).ToListAsync();
 
                 if (listsale.Count == 0)
                 {
@@ -269,5 +335,40 @@ namespace FurnitureStore_API.DataAccessLayer
             // Trả về phản hồi
             return response;
         }
+
+        public async Task<UpdataFlashSaleResponse> UpdateFlashSalebyIDPatch(UpdataFlashSaleRequest flashsale)
+        {
+            UpdataFlashSaleResponse response = new UpdataFlashSaleResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                List<string> khungGioArray = JsonConvert.DeserializeObject<List<string>>(flashsale.KhungGio[0]);
+                var filter = Builders<InsertFlashSaleResquest>.Filter.Eq(x => x._id, flashsale._id);
+                var update = Builders<InsertFlashSaleResquest>.Update
+                    .Set(x => x.PhanTramGiam, flashsale.PhanTramGiam)
+                    .Set(x => x.KhungGio, khungGioArray)
+                    .Set(x => x.NgaySale, flashsale.NgaySale);
+
+                var result = await _mongoCollectioninti.UpdateOneAsync(filter, update);
+                if (!result.IsAcknowledged)
+                {
+                    response.Message = "ErrorL id not found/ not update";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
     }
 }

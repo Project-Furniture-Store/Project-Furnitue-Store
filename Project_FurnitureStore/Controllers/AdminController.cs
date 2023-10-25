@@ -301,6 +301,53 @@ namespace Project_FurnitureStore.Controllers
             return View(flashsale);
         }
 
+
+        public async Task<IActionResult> EXUpdateFlashsale(string idfs,string ngay, string phantram, List<string> idSPs)
+        {
+            foreach (string idsp in idSPs)
+            {
+                string iddd = idsp;
+            }
+
+            UpdataFlashSale data1 = new UpdataFlashSale
+            {
+                _id = idfs,
+                NgaySale = ngay,
+                PhanTramGiam = int.Parse(phantram),
+                KhungGio = idSPs
+            };
+
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(data1);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response1 = await _client.PatchAsync("https://localhost:7143/api/FlashSale/UpdateFlashSalebyIDPatch", content);
+
+                if (response1.IsSuccessStatusCode)
+                {
+                    var responseData = await response1.Content.ReadAsStringAsync();
+
+                    return RedirectToAction("AddProductVoucher", new { idKhuyenMai = idfs });
+                }
+                else
+                {
+                    var errorContent = await response1.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorResponse>(errorContent);
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật sản phẩm: " + error.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi gọi API: " + ex.Message;
+            }
+            return View();
+
+        }
+            
+        
+
+
         public async Task<IActionResult> EXAddSanPhamFlashsale(string idfs, List<string> idSPs)
         {
             string idSPsJson = JsonConvert.SerializeObject(idSPs);

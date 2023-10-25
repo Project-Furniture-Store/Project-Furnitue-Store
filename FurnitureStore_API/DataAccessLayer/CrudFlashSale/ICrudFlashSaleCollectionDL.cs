@@ -8,11 +8,13 @@ namespace FurnitureStore_API.DataAccessLayer
 {
     public interface ICrudOperationDL_FlashSale
     {
-        public Task<GetListFlashSaleResponse> GetFlashSaleFlashSale();
+        public Task<GetSanPhamResponse> GetFlashSaleFlashSale();
         public Task<GetFlashSaleResponse> GetAllFlashSale();
         public Task<GetSanPhamResponse> GetProductFlashSale(string idFlashSale);
         public Task<GetFlashSaleResponse> GetFlashSale(string idfs);
         public Task<GetFlashSaleResponse> AddProductIDFs(string fsId, List<string> idSPs);
         public Task<GetFlashSaleResponse> DeleteProductIDFs(string fsId, List<string> idSPs);
+        public Task<UpdataFlashSaleResponse> UpdateFlashSalebyIDPatch(UpdataFlashSaleRequest flashsale);
+        public Task<GetFlashSaleResponse> CheckSaleFlashSale(string date);
     }
 }
