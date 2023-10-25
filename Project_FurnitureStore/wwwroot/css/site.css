@@ -325,3 +325,26 @@ input[type="radio"]:checked + .color {
     background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ 50% */
     display: none; /* Ẩn ban đầu */
 }
+
+
+
+
+
+
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}

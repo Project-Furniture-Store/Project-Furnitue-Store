@@ -14,5 +14,7 @@ namespace FurnitureStore_API.DataAccessLayer
         public Task<InsertSanPhamResponse> UpdateProductbyID(InsertSanPhamResquest Sanpham);
         public Task<UpdateProductPatchResponse> UpdateProductbyIDPatch(UpdateProductPatchResquest Sanpham1);
         public Task<DeleteProductbyIDResponse> DeleteProductbyID(string id);
+        public Task<GetSanPhamResponse> GetSanPhamNoKhuyenMai();
+        public Task<GetSanPhamResponse> GetSanPhamNoFlashSale();
     }
 }

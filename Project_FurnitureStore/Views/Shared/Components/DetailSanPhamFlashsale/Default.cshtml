@@ -1,0 +1,35 @@
+﻿ @model IEnumerable<Project_FurnitureStore.Models.SanPhamViewModel>
+
+<h1 style="text-align: center;">Danh Sách Sản Phẩm</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Sản Phẩm</th>
+            <th>Hình</th>
+            <th>Đơn Giá</th>
+            <th>Sale</th>
+            <th>Thao Tác</th>
+        </tr>
+        @{
+            @foreach (var item in Model)
+            {
+                
+            
+        <tr>
+            <td>@item.id</td>
+            <td>@item.TenSP</td>
+            <td><img style="max-width: 50px;  max-height: 50px;"  src="path_to_image" alt="Hình sản phẩm"></td>
+            <td>@item.DonGia</td>
+            <td>10%</td>
+            <td><button onclick="deleteRow(this)">Xóa</button></td>
+        </tr>
+        }}
+        <!-- Thêm các hàng dữ liệu khác tương tự -->
+    </table>
+
+    <script>
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>

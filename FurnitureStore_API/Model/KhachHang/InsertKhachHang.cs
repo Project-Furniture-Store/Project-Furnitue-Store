@@ -14,7 +14,7 @@ namespace FurnitureStore_API.Model.KhachHang
         public string? DiaChi { get; set; }
         public string? SDT { get; set; }
         public string? DiemTichLuy { get; set; }
-        public List<GioHangItem>? GioHang { get; set; }
+        public List<GioHangItem> GioHang { get; set; }
     }
 
     public class GioHangItem

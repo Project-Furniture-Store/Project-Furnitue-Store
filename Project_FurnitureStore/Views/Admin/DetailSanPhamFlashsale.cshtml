@@ -1,0 +1,151 @@
+﻿@{
+	ViewData["Title"] = "DetailSanPhamFlashsale";
+	Layout = "~/Views/Admin/Index.cshtml";
+	var fs = TempData["FlashSalelist"] as List<FlashSaleViewModel>;
+	var ProductNoFS = TempData["ProductNoFS"] as List<SanPhamViewModel>;
+	double salecon = 0;
+}
+
+
+
+@model IEnumerable<Project_FurnitureStore.Models.SanPhamViewModel>
+
+<h2 class="text-3xl font-semibold mb-4 text-center w-[1000px]">Deal Chớp Nhoáng</h2>
+<div class="flex px-4">
+	@{
+		@foreach (var item in fs)
+		{
+			<div class="">
+				<div id="idfs" style="display:none">@item._id</div>
+				<div>Ngày: @item.NgaySale</div>
+				<div>Đồng giá: @item.PhanTramGiam.ToString("C0")</div>
+			</div>
+
+
+			salecon = @item.PhanTramGiam;
+			<div class="flex ml-[100px]">
+				@foreach (var item1 in @item.KhungGio)
+				{
+					<div class="p-1 w-[50px] h-[35px] bg-orange-500 rounded-lg ml-[10px]">@item1</div>
+				}
+
+			</div>
+
+			<div class="ml-auto">
+				<a href="@Url.Action("ModifyFlashSale", "Admin",new { idFs = @item._id})">
+					<div class="flex items-center justify-center h-[30px] w-[150px] rounded-full bg-yellow-600">Modify</div>
+				</a>
+
+			</div>
+		}
+	}
+
+</div>
+<hr />
+<div class="px-3">
+	<table class=" mt-[5px]">
+		<tr>
+			<th>ID</th>
+			<th>Sản Phẩm</th>
+			<th>Hình</th>
+			<th>Đơn Giá</th>
+			<th>Sale</th>
+			<th>X</th>
+		</tr>
+		@{
+			@foreach (var item in Model)
+			{
+
+
+				<tr>
+					<td>@item.id</td>
+					<td>@item.TenSP</td>
+					<td><img style="max-width: 50px;  max-height: 50px;" src="path_to_image"></td>
+					<td>@item.DonGia.ToString("C0")</td>
+					<td>@salecon.ToString("C0")</td>
+					<td><input type="checkbox" value="@item.id" class="deleteProductCheckbox"></td>
+				</tr>
+			}
+		}
+		<!-- Thêm các hàng dữ liệu khác tương tự -->
+	</table>
+</div>
+<div class="flex mx-[42px] mt-2">
+
+	<a class="ml-auto" id="sendUrlldelete" onclick="xuLyClickdelete()">
+		<div class="flex items-center justify-center h-[30px] w-[150px] rounded-full bg-red-600  font-medium ">Xóa sản phẩm</div>
+	</a>
+</div>
+
+<script>
+	function deleteRow(button) {
+		var row = button.parentNode.parentNode;
+		row.parentNode.removeChild(row);
+	}
+</script>
+
+<hr />
+<div class="px-3">
+	<table class=" mt-[5px]">
+		<tr>
+			<th>ID</th>
+			<th>Sản Phẩm</th>
+			<th>Hình</th>
+			<th>Đơn Giá</th>
+			<th></th>
+		</tr>
+		@{
+			@foreach (var item in ProductNoFS)
+			{
+
+
+				<tr>
+					<td>@item.id</td>
+					<td>@item.TenSP</td>
+					<td><img style="max-width: 50px;  max-height: 50px;" src="path_to_image"></td>
+					<td>@item.DonGia.ToString("C0")</td>
+					<td><input type="checkbox" value="@item.id" class="AddProductCheckbox"></td>
+
+				</tr>
+			}
+		}
+		<!-- Thêm các hàng dữ liệu khác tương tự -->
+	</table>
+</div>
+<div class="flex mx-[42px] mt-2">
+
+	<a class="ml-auto" id="sendUrlladd" onclick="xuLyClickadd()">
+		<div class="flex items-center justify-center h-[30px] w-[150px] rounded-full bg-cyan-600  font-medium ">Thêm sản phẩm</div>
+	</a>
+</div>
+
+<script>
+	function xuLyClickadd() {
+
+		var checkedCheckboxes1 = document.querySelectorAll(".AddProductCheckbox:checked");
+		var selectedIds1 = Array.from(checkedCheckboxes1).map(function (checkbox) {
+			return checkbox.value;
+		});
+		var idfs = document.getElementById('idfs').innerText;
+		var linkk31 = document.getElementById("sendUrlladd");
+		var url1 = `/Admin/EXAddSanPhamFlashsale?idfs=${idfs}&idSPs=${JSON.stringify(selectedIds1)}`;
+
+		linkk31.setAttribute('href', url1);
+	}
+
+
+	function xuLyClickdelete() {
+
+		var checkedCheckboxes1 = document.querySelectorAll(".deleteProductCheckbox:checked");
+		var selectedIds1 = Array.from(checkedCheckboxes1).map(function (checkbox) {
+			return checkbox.value;
+		});
+		var idfs = document.getElementById('idfs').innerText;
+		var linkk31 = document.getElementById("sendUrlldelete");
+		var url1 = `/Admin/EXDeleteSanPhamFlashsale?idfs=${idfs}&idSPs=${JSON.stringify(selectedIds1)}`;
+
+		linkk31.setAttribute('href', url1);
+	}
+
+</script>
+

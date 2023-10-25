@@ -19,6 +19,27 @@ namespace FurnitureStore_API.Controllers
             _crudOperationDL = crudOperationDL;
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SetKhuyenMai(InsertKhuyenMaiResquest khuyenmai) // get product by id
+        {
+            // thông báo
+            InsertKhuyenMaiResponse response = new InsertKhuyenMaiResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.SetKhuyenMai(khuyenmai);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetKhuyenMai()
@@ -110,7 +131,76 @@ namespace FurnitureStore_API.Controllers
 			// Trả về phản hồi HTTP với kết quả từ _crudOperationDL
 			return Ok(response);
 		}
-	}
+
+
+        [HttpPost]
+        public async Task<ActionResult> DelelteProductKMID(string khuyenMaiId, List<string> idSPs)
+        {
+            // thông báo
+            GetKhuyenMaiResponse response = new GetKhuyenMaiResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.DelelteProductKMID(khuyenMaiId, idSPs);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateKhuyenMaibyIDPatch(UpdataKhuyenMaiPatchResquest Khuyenmai) // get product by id
+        {
+            // thông báo
+            UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.UpdateKhuyenMaibyIDPatch(Khuyenmai);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteKhuyenMaibyID(string idkhuyenmai) // get product by id
+        {
+            // thông báo
+            UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.DeleteKhuyenMaibyID(idkhuyenmai);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+    }
 
 
 

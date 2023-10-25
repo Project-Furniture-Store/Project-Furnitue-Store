@@ -173,6 +173,156 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
+        public async Task<GetSanPhamResponse> GetSanPhamNoFlashSale()
+        {
+            GetSanPhamResponse response = new GetSanPhamResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+
+
+                var pipeline = new[]
+                {
+                    BsonDocument.Parse(@"{
+                        $lookup: {
+                            from: 'FLASHSALE',
+                            localField: '_id',
+                            foreignField: 'SanPhamSale',
+                            as: 'flashsale'
+                        }
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $match: {
+                            flashsale: {
+                                $eq: []
+                            }
+                        }
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $project: {
+                            TenSP: 1,
+                            MieuTa: 1,
+                            DonGia: 1,
+                            MauSac: 1,
+                            KichCo: 1,
+                            Hinh: 1,
+                            'NhaCungCap.TenNCC': 1,
+                            'NhaCungCap.DiaChi': 1,
+                            'NhaCungCap.SDT': 1,
+                            'NhaCungCap.DonGiaCC': 1,
+                            'DanhGia.KhachHangFeeback': 1,
+                            'DanhGia.Rate': 1,
+                            'DanhGia.ChiTiet': 1,
+                            'DanhGia.Hinh': 1,
+                            'DanhGia.Video': 1,
+                            GoldCoin: 1,
+                            Loai: 1
+                        }
+                    }")
+                };
+
+
+                List<InsertSanPhamResquest> listsp = await _mongoCollection.Aggregate<InsertSanPhamResquest>(pipeline).ToListAsync();
+
+                if (listsp.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+
+                response.data = listsp;
+
+
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+        public async Task<GetSanPhamResponse> GetSanPhamNoKhuyenMai()
+        {
+            GetSanPhamResponse response = new GetSanPhamResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+
+
+                var pipeline = new[]
+                 {
+                    BsonDocument.Parse(@"{
+                        $lookup: {
+                            from: 'KHUYENMAI',
+                            localField: '_id',
+                            foreignField: 'IdSP',
+                            as: 'khuyenmai'
+                        }
+                    }"),
+                    BsonDocument.Parse(@"{ 
+                        $match: { 
+                            khuyenmai: { 
+                                $eq: []
+                            } 
+                        } 
+                    }"),
+                    BsonDocument.Parse(@"{
+                        $project: {
+                            TenSP: 1,
+                            MieuTa: 1,
+                            DonGia: 1,
+                            MauSac: 1,
+                            KichCo: 1,
+                            Hinh: 1,
+                            'NhaCungCap.TenNCC': 1,
+                            'NhaCungCap.DiaChi': 1,
+                            'NhaCungCap.SDT': 1,
+                            'NhaCungCap.DonGiaCC': 1,
+                            'DanhGia.KhachHangFeeback': 1,
+                            'DanhGia.Rate': 1,
+                            'DanhGia.ChiTiet': 1,
+                            'DanhGia.Hinh': 1,
+                            'DanhGia.Video': 1,
+                            GoldCoin: 1,
+                            Loai: 1
+                        }
+                    }")
+                };
+
+
+                List<InsertSanPhamResquest> listsp = await _mongoCollection.Aggregate<InsertSanPhamResquest>(pipeline).ToListAsync();
+
+                if (listsp.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+
+                response.data = listsp;
+
+
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
         public async Task<InsertSanPhamResponse> SetProduct(InsertSanPhamResquest Sanpham)
         {
             InsertSanPhamResponse response = new InsertSanPhamResponse();

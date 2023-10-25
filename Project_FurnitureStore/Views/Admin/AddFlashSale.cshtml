@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Project_FurnitureStore.Models.FlashSaleViewModel>
+
+@{
+	ViewData["Title"] = "AddFlashSale";
+	Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+<div class="ml-2 p-4 w-[1000px]">
+	<h1 class="text-3xl font-semibold mb-4 text-center">Tạo Mới FlashSale</h1>
+	<div class="bg-white p-4 rounded-lg shadow-md">
+
+		<div class="mb-4">
+			<label for="title" class="block text-gray-700 text-sm font-medium mb-2">Tạo ngày mới:  </label>
+			<input type="date" id="start_date" name="money" class="w-full px-4 py-2 border rounded-md">
+		</div>
+
+
+
+		<div class="mb-4">
+			<label for="start_date" class="block text-gray-700 text-sm font-medium mb-2">Giá:</label>
+			<input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded-md">
+		</div>
+		<div class="mb-4">
+			<label for="end_date" class="block text-gray-700 text-sm font-medium mb-2">Chọn khung giờ:</label>
+			<div class="flex">
+				<div>
+					<div>
+						<input type="checkbox" id="time_09_00" value="09:00">
+						<label for="time_09_00">09:00</label>
+					</div>
+					<div>
+						<input type="checkbox" id="time_12_00" value="12:00">
+						<label for="time_12_00">12:00</label>
+					</div>
+					<div>
+						<input type="checkbox" id="time_15_00" value="15:00">
+						<label for="time_15_00">15:00</label>
+					</div>
+					<div>
+						<input type="checkbox" id="time_17_00" value="17:00">
+						<label for="time_17_00">17:00</label>
+					</div>
+				</div>
+				<div class="ml-5">
+					<div>
+						<input type="checkbox" id="time_20_00" value="20:00">
+						<label for="time_20_00">20:00</label>
+					</div>
+					<div>
+						<input type="checkbox" id="time_00_00" value="00:00">
+						<label for="time_00_00">00:00</label>
+					</div>
+					<div>
+						<input type="checkbox" id="time_03_00" value="03:00">
+						<label for="time_03_00">03:00</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="flex justify-end">
+			<a class="ml-auto" id="sendUrll" onclick="xuLyClick()">
+				<button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Tạo FlashSale</button>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+
+ <h3 class="ml-[42px]">Khung giờ đang hoạt động</h3>
+ <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner">
+		@{
+			int totalCount = Model.Count();
+			int itemsPerSlide = 4;
+			int slideCount = (int)Math.Ceiling((double)totalCount / itemsPerSlide);
+			int loopCount = 0;
+
+			for (int slideIndex = 0; slideIndex < slideCount; slideIndex++)
+			{
+				<text>
+					<div class="carousel-item @(slideIndex == 0 ? "active" : "")">
+						<div class="cards-wrapper dm">
+							<div class=" h-[380px] px-10">
+								<div class="grid grid-cols-4 gap-x-3 ">
+									@for (int i = loopCount; i < totalCount && i < loopCount + itemsPerSlide; i++)
+									{
+										var item = Model.ElementAt(i);
+										<a href="@Url.Action("DetailSanPhamFlashsale", "Admin",new { idflashsale = @item._id })" id="linkId">
+										<div style="display:none" id="idfs">@item._id</div>
+											<div class="bg-white  h-[190px] w-full p-[0px] rounded-lg border-2 border-orange-500">
+												
+												<p class="font-Raleway font-semibold text-xl border-b-4 border-orange-500 text-center">@item.NgaySale</p>
+												@foreach (var item1 in @item.KhungGio)
+												{
+													<p class="ml-[10px]">@item1</p>
+												}
+												
+											</div>
+										</a>
+
+									}
+
+									@if (loopCount < totalCount)
+									{
+										loopCount += itemsPerSlide;
+									}
+									else
+									{
+										break;
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</text>
+			}
+		}
+	</div>
+	<a class="carousel-control-prev" data-target="#carouselExampleIndicators" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="carousel-control-next" data-target="#carouselExampleIndicators" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>
+
+									
+

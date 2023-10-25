@@ -63,7 +63,7 @@
 					<div class="flex gap-1 justify-center">
 
 					<a href="@Url.Action("AddProductVoucher", "Admin", new { idKhuyenMai = @item._id })"><div class="h-\[20PX\] w-[100px] bg-cyan-500 flex justify-center rounded-full font-semibold"> Add product </div></a>	
-						<div class="h-\[20PX\] w-[100px] bg-yellow-400 flex justify-center rounded-full font-semibold"> Modify </div>
+					<a href="@Url.Action("ModifyVoucher", "Admin", new { idKhuyenMai = @item._id })">	<div class="h-\[20PX\] w-[100px] bg-yellow-400 flex justify-center rounded-full font-semibold"> Modify </div></a>
 					</div>
 
 

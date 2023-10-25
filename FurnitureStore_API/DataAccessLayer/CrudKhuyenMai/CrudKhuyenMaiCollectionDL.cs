@@ -2,6 +2,9 @@
 using FurnitureStore_API.Model.SanPham;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Bson;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FurnitureStore_API.DataAccessLayer
 {
@@ -30,36 +33,30 @@ namespace FurnitureStore_API.DataAccessLayer
             // Khởi tạo giá trị mặc định cho phản hồi
             response.IsSuccess = true;
             response.Message = "Data Successfully";
+
             try
             {
-                List<ObjectId> objectIdList = new List<ObjectId>();
-
-                foreach (string id in idSPs)
+                // Kiểm tra xem danh sách idSPs có giá trị không rỗng
+                if (idSPs != null && idSPs.Any())
                 {
-                    // Kiểm tra xem chuỗi có chứa khoảng trắng không
-                    if (!string.IsNullOrWhiteSpace(id))
-                    {
-                        // Loại bỏ khoảng trắng ở đầu và cuối chuỗi
-                        string trimmedId = id.Trim();
+                    List<string> idStrings = JsonConvert.DeserializeObject<List<string>>(idSPs[0]);
 
-                        // Kiểm tra chuỗi sau khi loại bỏ khoảng trắng có còn trống không
-                        if (!string.IsNullOrWhiteSpace(trimmedId))
-                        {
-                            objectIdList.Add(ObjectId.Parse(trimmedId));
-                        }
+                    // Thực hiện thêm dữ liệu vào MongoDB
+                    var filter = Builders<InsertKhuyenMaiResquest>.Filter.Eq("_id", khuyenMaiId);
+                    var update = Builders<InsertKhuyenMaiResquest>.Update.PushEach("IdSP", idStrings);
+
+                    var result = await _mongoCollection.UpdateOneAsync(filter, update);
+
+                    if (result.ModifiedCount == 0)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "Khuyến mãi không tồn tại";
                     }
                 }
-
-                // Thực hiện thêm dữ liệu vào MongoDB
-                var filter = Builders<InsertKhuyenMaiResquest>.Filter.Eq("_id", khuyenMaiId);
-                var update = Builders<InsertKhuyenMaiResquest>.Update.PushEach("IdSP", objectIdList);
-
-                var result = await _mongoCollection.UpdateOneAsync(filter, update);
-
-                if (result.ModifiedCount == 0)
+                else
                 {
                     response.IsSuccess = false;
-                    response.Message = "Khuyến mãi không tồn tại";
+                    response.Message = "Danh sách IdSPs không chứa các giá trị hợp lệ";
                 }
             }
             catch (Exception ex)
@@ -73,12 +70,84 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
+        public async Task<GetKhuyenMaiResponse> DelelteProductKMID(string khuyenMaiId, List<string> idSPs)
+        {
+            GetKhuyenMaiResponse response = new GetKhuyenMaiResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Kiểm tra xem danh sách idSPs có giá trị không rỗng
+                if (idSPs != null && idSPs.Any())
+                {
+                    List<string> idStrings = JsonConvert.DeserializeObject<List<string>>(idSPs[0]);
+                    //foreach (var idString in idStrings)
+                    //{
+                    //    string aa = idString;
+                    //}
+
+                    // Thực hiện thêm dữ liệu vào MongoDB
+                    var filter = Builders<InsertKhuyenMaiResquest>.Filter.Eq("_id", khuyenMaiId);
+                    var update = Builders<InsertKhuyenMaiResquest>.Update.PullAll("IdSP", idStrings);
+
+                    var result = await _mongoCollection.UpdateOneAsync(filter, update);
 
 
+                    if (result.ModifiedCount == 0)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "Khuyến mãi không tồn tại";
+                    }
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Danh sách IdSPs không chứa các giá trị hợp lệ";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Lỗi: " + ex.Message;
+            }
 
+            // Trả về phản hồi
+            return response;
+        }
 
+		public async Task<UpdataKhuyenMaiPatchResponse> DeleteKhuyenMaibyID(string idkhuyenmai)
+		{
+            UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
 
-        public async Task<GetKhuyenMaiResponse> GetKhuyenMai()
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                var result = await _mongoCollection.DeleteOneAsync(x => x._id == idkhuyenmai);
+                if (!result.IsAcknowledged)
+                {
+                    response.Message = "ErrorL id not found/ nnot delete";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+		public async Task<GetKhuyenMaiResponse> GetKhuyenMai()
         {
             GetKhuyenMaiResponse response = new GetKhuyenMaiResponse();
 
@@ -181,6 +250,67 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
+        public async Task<InsertKhuyenMaiResponse> SetKhuyenMai(InsertKhuyenMaiResquest khuyenmai)
+        {
+            InsertKhuyenMaiResponse response = new InsertKhuyenMaiResponse();
 
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                await _mongoCollection.InsertOneAsync(khuyenmai);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+		public async Task<UpdataKhuyenMaiPatchResponse> UpdateKhuyenMaibyIDPatch(UpdataKhuyenMaiPatchResquest Khuyenmai)
+		{
+            UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+
+                var filter = new BsonDocument
+                {
+                    { "TenKhuyenMai", Khuyenmai.TenKhuyenMai },
+                    { "Hinh", Khuyenmai.Hinh },
+                    { "NgayKhuyenMai", Khuyenmai.NgayKhuyenMai },
+                    { "NgayKetThuc", Khuyenmai.NgayKetThuc },
+                    { "DieuKien", Khuyenmai.DieuKien },
+                    { "TienGiam", Khuyenmai.TienGiam }
+                   
+                };
+
+                var update = new BsonDocument("$set", filter);
+                var result = await _mongoCollection.UpdateOneAsync(x => x._id == Khuyenmai._id, update);
+                if (!result.IsAcknowledged)
+                {
+                    response.Message = "ErrorL id not found/ not update";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
 	}
 }

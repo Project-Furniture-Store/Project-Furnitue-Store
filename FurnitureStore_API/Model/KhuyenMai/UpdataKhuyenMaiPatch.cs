@@ -1,10 +1,10 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace FurnitureStore_API.Model.KhuyenMai
 {
-    public class InsertKhuyenMaiResquest
+	public class UpdataKhuyenMaiPatchResquest
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -15,20 +15,14 @@ namespace FurnitureStore_API.Model.KhuyenMai
         public string NgayKetThuc { get; set; }
         public string DieuKien { get; set; }
         public string TienGiam { get; set; }
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public List<string> IdSP { get; set; }
-        public InsertKhuyenMaiResquest()
-        {
-            IdSP = new List<string>();
-        }
     }
 
 
-    public class InsertKhuyenMaiResponse
+    public class UpdataKhuyenMaiPatchResponse
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
     }
+
 
 }

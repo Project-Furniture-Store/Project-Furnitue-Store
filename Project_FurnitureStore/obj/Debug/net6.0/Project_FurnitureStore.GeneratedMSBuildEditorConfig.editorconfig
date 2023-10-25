@@ -19,6 +19,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/AddFlashSale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkRmxhc2hTYWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/AddKhuyenMai.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkS2h1eWVuTWFpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -31,8 +35,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkUHJvZHVjdFZvdWNoZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/DetailSanPhamFlashsale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWlsU2FuUGhhbUZsYXNoc2FsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/ModifyFlashSale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kaWZ5Rmxhc2hTYWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/ModifyVoucher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kaWZ5Vm91Y2hlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Admin/updateProduct.cshtml]
@@ -85,6 +101,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Shared/Components/Catogory/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2F0b2dvcnlcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Shared/Components/DetailSanPhamFlashsale/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcRGV0YWlsU2FuUGhhbUZsYXNoc2FsZVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/admin/Documents/GitHub/Project-Furnitue-Store/Project_FurnitureStore/Views/Shared/Components/FilterByCategory/Default.cshtml]

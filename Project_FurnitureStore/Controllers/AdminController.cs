@@ -186,57 +186,210 @@ namespace Project_FurnitureStore.Controllers
             return View();
         }
 
+        public async Task<IActionResult> AddFlashSale()
+		{
+           
 
+            List<FlashSaleViewModel> flashsaleList = new List<FlashSaleViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/FlashSale/GetAllFlashSale");
 
-        public async Task<IActionResult> AddKhuyenMai(string tensp, string mieutta, int dongia, string mausac, string kichco, string hinh, string nhacc, string dcncc, string sdt, string loai)
+            if (response.IsSuccessStatusCode)
+            {
+               
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    flashsaleList = JsonConvert.DeserializeObject<List<FlashSaleViewModel>>(dataJson);
+                }
+
+            }
+            return View(flashsaleList);
+           
+		}
+
+        public async Task loadInforFlashSale(string idFs)
         {
-            //string mausacc = mausac;
-            //List<string> mausacList = mausacc.Split('/').ToList();
+            List<FlashSaleViewModel> flashsaleList = new List<FlashSaleViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/FlashSale/GetFlashSale?idfs={idFs}");
 
-            //SanPhamViewModel data1 = new SanPhamViewModel
-            //{
-            //    TenSP = tensp,
-            //    MieuTa = mieutta,
-            //    DonGia = dongia,
-            //    MauSac = mausacList,
-            //    KichCo = kichco,
-            //    Hinh = hinh,
+            if (response.IsSuccessStatusCode)
+            {
 
-            //    NhaCungCap = new Supplier
-            //    {
-            //        TenNCC = nhacc,
-            //        DiaChi = dcncc,
-            //        SDT = sdt,
-            //        DonGiaCC = 0.0
-            //    },
-            //    Loai = loai,
-            //    DanhGia = new List<Rating>() // Khởi tạo danh sách rỗng
-            //};
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
 
-            //try
-            //{
-            //    var jsonData = JsonConvert.SerializeObject(data1);
-            //    StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    flashsaleList = JsonConvert.DeserializeObject<List<FlashSaleViewModel>>(dataJson);
+                }
 
-            //    HttpResponseMessage response1 = await _client.PostAsync("https://localhost:7143/api/SanPham/SetProduct", content);
+            }
+            TempData["FlashSalelist"] = flashsaleList;
 
-            //    if (response1.IsSuccessStatusCode)
-            //    {
-            //        var responseData = await response1.Content.ReadAsStringAsync();
-            //        return RedirectToAction("AddProductAdmin");
-            //    }
-            //    else
-            //    {
-            //        var errorContent = await response1.Content.ReadAsStringAsync();
-            //        var error = JsonConvert.DeserializeObject<ErrorResponse>(errorContent);
-            //        // Xử lý lỗi ở đây
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Xử lý lỗi nếu có lỗi xảy ra trong quá trình gọi API
-            //    // ex.Message chứa thông tin lỗi
-            //}
+        }
+
+
+        public async Task loadInforNoFlashSale()
+        {
+            List<SanPhamViewModel> flashsaleList = new List<SanPhamViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/SanPham/GetSanPhamNoFlashSale");
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    flashsaleList = JsonConvert.DeserializeObject<List<SanPhamViewModel>>(dataJson);
+                }
+
+            }
+            TempData["ProductNoFS"] = flashsaleList;
+
+        }
+        public async Task<IActionResult> DetailSanPhamFlashsale(string idflashsale)
+        {
+            List<SanPhamViewModel> sanphamList = new List<SanPhamViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/FlashSale/GetProductFlashSale?idFlashSale={idflashsale}");
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    sanphamList = JsonConvert.DeserializeObject<List<SanPhamViewModel>>(dataJson);
+                    await loadInforFlashSale(idflashsale);
+                    await loadInforNoFlashSale();
+                }
+
+            }
+
+            return View(sanphamList);
+          
+        }
+
+        public async Task<IActionResult> ModifyFlashSale(string idFs)
+        {
+            List<FlashSaleViewModel> flashsale = new List<FlashSaleViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/FlashSale/GetFlashSale?idfs={idFs}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Xử lý dữ liệu từ response ở đây (ví dụ: KhuyenMaiList = await response.Content.ReadAsAsync<List<KhuyenMaiViewModel>>();)
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    flashsale = JsonConvert.DeserializeObject<List<FlashSaleViewModel>>(dataJson);
+
+                }
+
+            }
+            return View(flashsale);
+        }
+
+        public async Task<IActionResult> EXAddSanPhamFlashsale(string idfs, List<string> idSPs)
+        {
+            string idSPsJson = JsonConvert.SerializeObject(idSPs);
+
+
+            StringContent content = new StringContent(idSPsJson, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage response = await _client.PostAsync(_client.BaseAddress + $"/FlashSale/AddProductIDFs?fsId={idfs}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("DetailSanPhamFlashsale", new { idflashsale = idfs });
+            }
+            else
+            {
+                string errorMessage = response.ReasonPhrase;
+
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> EXDeleteSanPhamFlashsale(string idfs, List<string> idSPs)
+        {
+            string idSPsJson = JsonConvert.SerializeObject(idSPs);
+
+
+            StringContent content = new StringContent(idSPsJson, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage response = await _client.PostAsync(_client.BaseAddress + $"/FlashSale/DeleteProductIDFs?fsId={idfs}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("DetailSanPhamFlashsale", new { idflashsale = idfs });
+            }
+            else
+            {
+                string errorMessage = response.ReasonPhrase;
+
+            }
+            return View();
+        }
+
+
+        public async Task<IActionResult> AddKhuyenMai()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> EXAddKhuyenMai(string tenkm, string hinhname, string start, string end, string dieukien, string phantram)
+        {
+            
+            KhuyenMaiViewModel data1 = new KhuyenMaiViewModel
+            {
+                TenKhuyenMai = tenkm,
+                Hinh = hinhname,
+                NgayKhuyenMai = start,
+                NgayKetThuc = end,
+                DieuKien = dieukien,
+                TienGiam = phantram,
+                IdSP = new List<String>() // Khởi tạo danh sách rỗng
+            };
+
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(data1);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response1 = await _client.PostAsync("https://localhost:7143/api/KhuyenMai/SetKhuyenMai", content);
+
+                if (response1.IsSuccessStatusCode)
+                {
+                    var responseData = await response1.Content.ReadAsStringAsync();
+                    return RedirectToAction("AddKhuyenMai");
+                }
+                else
+                {
+                    var errorContent = await response1.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorResponse>(errorContent);
+                    // Xử lý lỗi ở đây
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình gọi API
+                // ex.Message chứa thông tin lỗi
+            }
 
             return View();
         }
@@ -259,6 +412,7 @@ namespace Project_FurnitureStore.Controllers
                     var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
                     Khuyenmai = JsonConvert.DeserializeObject<List<KhuyenMaiViewModel>>(dataJson);
                     await loadProducKhuyenMainyID(idKhuyenMai);
+                    await loadProducNoKhuyenMainyID();
                 }
 
             }
@@ -266,11 +420,106 @@ namespace Project_FurnitureStore.Controllers
         }
 
 
+
+        public async Task<IActionResult> ModifyVoucher(string idKhuyenMai)
+        {
+            List<KhuyenMaiViewModel> Khuyenmai = new List<KhuyenMaiViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhuyenMai/GetKhuyenMaibyId?idKhuyenMai={idKhuyenMai}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Xử lý dữ liệu từ response ở đây (ví dụ: KhuyenMaiList = await response.Content.ReadAsAsync<List<KhuyenMaiViewModel>>();)
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    Khuyenmai = JsonConvert.DeserializeObject<List<KhuyenMaiViewModel>>(dataJson);
+                  
+                }
+
+            }
+            return View(Khuyenmai);
+        }
+
+        public async Task<IActionResult> EXDeleteModifyVoucher(string idkhuyenmai)
+		{
+            try
+            {
+
+                HttpResponseMessage response1 = await _client.DeleteAsync($"https://localhost:7143/api/KhuyenMai/DeleteKhuyenMaibyID?idkhuyenmai={idkhuyenmai}");
+
+                if (response1.IsSuccessStatusCode)
+                {
+                    var responseData = await response1.Content.ReadAsStringAsync();
+                    TempData["SuccessMessage"] = "Sản phẩm đã được xóa thành công.";
+
+                    return RedirectToAction("AddKhuyenMai");
+                }
+                else
+                {
+                    var errorContent = await response1.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorResponse>(errorContent);
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa: " + error.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi gọi API: " + ex.Message;
+            }
+
+            return View();
+        }
+
+
+        public async Task<IActionResult> EXModifyVoucher(string idKhuyenMai, string tenkm, string hinhname, string start, string end, string dieukien, string phantram)
+        {
+           
+
+            UpdateKhuyenMai data1 = new UpdateKhuyenMai
+            {
+                _id=idKhuyenMai,
+                TenKhuyenMai=tenkm,
+                Hinh=hinhname,
+                NgayKhuyenMai=start,
+                NgayKetThuc=end,
+                DieuKien=dieukien,
+                TienGiam=phantram
+            };
+
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(data1);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response1 = await _client.PatchAsync("https://localhost:7143/api/KhuyenMai/UpdateKhuyenMaibyIDPatch", content);
+
+                if (response1.IsSuccessStatusCode)
+                {
+                    var responseData = await response1.Content.ReadAsStringAsync();
+
+                    return RedirectToAction("AddProductVoucher", new { idKhuyenMai = idKhuyenMai });
+                }
+                else
+                {
+                    var errorContent = await response1.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ErrorResponse>(errorContent);
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật sản phẩm: " + error.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi gọi API: " + ex.Message;
+            }
+
+            return View();
+        }
         public async Task<IActionResult> EXAddProductVoucher(string idKhuyenMai, List<string> idSPs)
         {
             string idSPsJson = JsonConvert.SerializeObject(idSPs);
 
-         
+           
             StringContent content = new StringContent(idSPsJson, Encoding.UTF8, "application/json");
 
                                                                                           
@@ -278,6 +527,7 @@ namespace Project_FurnitureStore.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string responseBody = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("AddProductVoucher", new { idKhuyenMai = idKhuyenMai });
             }
             else
             {
@@ -288,8 +538,52 @@ namespace Project_FurnitureStore.Controllers
         }
 
 
+        public async Task<IActionResult> EXDeleteProductVoucher(string idKhuyenMai, List<string> idSPs)
+        {
+            string idSPsJson = JsonConvert.SerializeObject(idSPs);
 
-            public async Task loadProducKhuyenMainyID(string idKhuyenMai)
+            ;
+            StringContent content = new StringContent(idSPsJson, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage response = await _client.PostAsync(_client.BaseAddress + $"/KhuyenMai/DelelteProductKMID?khuyenMaiId={idKhuyenMai}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("AddProductVoucher", new { idKhuyenMai = idKhuyenMai });
+            }
+            else
+            {
+                string errorMessage = response.ReasonPhrase;
+
+            }
+            return View();
+        }
+
+
+        public async Task loadProducNoKhuyenMainyID()
+        {
+            List<SanPhamViewModel> sanphamList = new List<SanPhamViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + "/SanPham/GetSanPhamNoKhuyenMai");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Xử lý dữ liệu từ response ở đây (ví dụ: loaihangList = await response.Content.ReadAsAsync<List<LoaiHangViewModel>>();)
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    sanphamList = JsonConvert.DeserializeObject<List<SanPhamViewModel>>(dataJson);
+                }
+
+            }
+            TempData["KhuyenMaiNoProductlist"] = sanphamList;
+
+        }
+
+        public async Task loadProducKhuyenMainyID(string idKhuyenMai)
         {
             List<SanPhamViewModel> SanPhamList = new List<SanPhamViewModel>();
             HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhuyenMai/ListProductKhuyenMai?idKhuyenMai={idKhuyenMai}");
@@ -413,6 +707,9 @@ namespace Project_FurnitureStore.Controllers
             TempData["LoaiHanglist"] = LoaiHangList;
 
         }
+
+
+       
 
     }
 }

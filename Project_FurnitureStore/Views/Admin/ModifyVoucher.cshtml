@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Project_FurnitureStore.Models.KhuyenMaiViewModel>
+@{
+	ViewData["Title"] = "ModifyVoucher";
+	Layout = "~/Views/Admin/Index.cshtml";
+}
+
+
+<div class="ml-2 p-4 w-[1000px]">
+	<h1 class="text-3xl font-semibold mb-4 text-center">Tạo Mới Khuyến Mãi</h1>
+	@{
+		@foreach (var item in Model)
+		{
+
+
+			<div class="bg-white p-4 rounded-lg shadow-md">
+				<div class="flex">
+					<div class="h-[250px] w-[200px] mr-4">
+						<img id="preview-image" src="~/Images/GheElisa.jpeg" alt="Mo ta hinh anh" class="h-full w-full object-cover">
+					</div>
+					<div >
+						<div class="mb-4">
+							<label for="title" class="block text-gray-700 text-sm font-medium mb-2">Tên Khuyến Mãi </label>
+							<input type="text" id="title" name="title" value="@item.TenKhuyenMai" class="w-full px-4 py-2 border rounded-md">
+						</div>
+
+						<div class="mb-4">
+							<label class="block text-gray-700 text-sm font-medium mb-2" for="product-image">Hình Ảnh</label>
+							<input class="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring focus:border-blue-500" id="product-image" type="file" onchange="displaySelectedImage()">
+						</div>
+						<div style="display:none" id="TenHinh">@item.Hinh</div>
+					<div style="display:none" id="productID">@item._id</div>
+											<script>
+												function displaySelectedImage() {
+													const input = document.getElementById('product-image');
+													const previewImage = document.getElementById('preview-image');
+													const file = input.files[0];
+													const reader = new FileReader();
+
+													reader.onload = function() {
+														previewImage.src = reader.result;
+
+														// Cập nhật nội dung của div có id="TenHinh"
+														const tenHinhDiv = document.getElementById('TenHinh');
+														tenHinhDiv.textContent = file.name; // Lấy tên của file
+													}
+
+													reader.readAsDataURL(file);
+												}
+											</script>
+
+						<div class="mb-4">
+							<label for="start_date" class="block text-gray-700 text-sm font-medium mb-2">Ngày Bắt Đầu</label>
+							<input type="date" id="start_date" value="@item.NgayKhuyenMai" name="start_date" class="w-full px-4 py-2 border rounded-md">
+						</div>
+
+						<div class="mb-4">
+							<label for="end_date" class="block text-gray-700 text-sm font-medium mb-2">Ngày Kết Thúc</label>
+							<input type="date" id="end_date" value="@item.NgayKetThuc" name="end_date" class="w-full px-4 py-2 border rounded-md">
+						</div>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label for="description" class="block text-gray-700 text-sm font-medium mb-2">Điều Kiện</label>
+					<textarea id="description" name="description" value="" class="w-full px-4 py-2 border rounded-md">@item.DieuKien</textarea>
+				</div>
+
+				<div class="mb-4">
+					<label for="discount" class="block text-gray-700 text-sm font-medium mb-2">Số Tiền Giảm</label>
+					<input type="number" id="discount" value="@item.TienGiam" name="discount" class="w-full px-4 py-2 border rounded-md">
+				</div>
+
+				<div class="flex justify-end">
+					<a class="ml-auto" id="sendUrllLuu" onclick="xuLyClickLuu()">
+						<button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Lưu khuyến mãi</button>
+					</a>
+
+					<a class="ml-auto ml-[10px]" id="sendUrllXoa" onclick="xuLyClickXoa()">
+						<button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Xóa khuyến mãi</button>
+					</a>
+				</div>
+
+			</div>
+		}
+	}
+</div>
+
+<script>
+    function xuLyClickLuu() {
+        var productIdDiv = document.getElementById('productID');
+        var productID = productIdDiv.textContent;
+
+        var tenkhuyenmai = document.getElementById('title').value;
+        var start = document.getElementById('start_date').value;
+        var end = document.getElementById('end_date').value;
+        var mieuTa = document.getElementById('description').value;
+        var phantram = document.getElementById('discount').value;
+
+        var productImageDiv = document.getElementById('TenHinh');
+        var productImageName = productImageDiv.textContent;
+
+  
+
+        var linkk3 = document.getElementById("sendUrllLuu");
+        var url3 = "/Admin/EXModifyVoucher" + '?idKhuyenMai=' + encodeURIComponent(productID)
+            + '&tenkm=' + encodeURIComponent(tenkhuyenmai)
+            + '&start=' + encodeURIComponent(start)
+            + '&end=' + encodeURIComponent(end)
+            + '&dieukien=' + encodeURIComponent(mieuTa)
+            + '&phantram=' + encodeURIComponent(phantram)
+            + '&hinhname=' + encodeURIComponent(productImageName);
+          
+        linkk3.href = url3;
+    }
+
+
+	function xuLyClickXoa() {
+        var productIdDiv = document.getElementById('productID');
+        var productID = productIdDiv.textContent;
+
+        var confirmed = confirm("Bạn có chắc muốn xóa khuyến mãi này?");
+        if (confirmed) {
+            var linkk3 = document.getElementById("sendUrllXoa");
+            var url3 = "/Admin/EXDeleteModifyVoucher" + '?idkhuyenmai=' + encodeURIComponent(productID);
+            linkk3.href = url3;
+        }
+    }
+</script>
