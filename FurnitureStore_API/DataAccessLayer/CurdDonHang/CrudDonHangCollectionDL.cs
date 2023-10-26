@@ -23,6 +23,36 @@ namespace FurnitureStore_API.DataAccessLayer
             _mongoCollection = _mongoDatabase.GetCollection<InsertDonHangResquest>(collectionName);
         }
 
+        public async Task<GetDonHangResponse> GetAllDonHang()
+        {
+            GetDonHangResponse response = new GetDonHangResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                // Thực hiện thêm dữ liệu vào MongoDB
+                // Thực hiện thêm dữ liệu vào MongoDB
+                response.data = new List<InsertDonHangResquest>();
+                response.data = await _mongoCollection.Find(x => true).ToListAsync();
+                if (response.data.Count == 0)
+                {
+                    //  response.Message = "No record found";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
         public async Task<GetSanPhamResponse> GetBestProduct()
         {
             GetSanPhamResponse response = new GetSanPhamResponse();

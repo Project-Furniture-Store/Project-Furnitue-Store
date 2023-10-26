@@ -19,7 +19,7 @@
 										@for (int i = loopCount; i < totalCount && i < loopCount + itemsPerSlide; i++)
 										{
 											var item = Model.ElementAt(i);
-
+											<a href="@Url.Action("DetailProduct","Product", new{ @idProduct=item.id})">
 											<div class="bg-white border-2 border-black h-[380px] w-full rounded-lg p-[10px]">
 												<img class="w-full h-[200PX]    rounded-lg" src="./Images/@item.Hinh">
 												<div class="flex items-center ">
@@ -48,6 +48,7 @@
 												</div>
 												<button class="buy-button text-center  h-[30px]   px-5 w-full">See More</button>
 											</div>
+											</a>
 										}
 										@if (loopCount < totalCount)
 										{

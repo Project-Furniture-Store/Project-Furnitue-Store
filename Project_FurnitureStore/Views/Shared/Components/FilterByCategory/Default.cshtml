@@ -23,9 +23,9 @@
 			foreach (var item in Model)
 			{
 
-
+				
 				<div class="bg-white border-2 border-black h-[380px] w-full rounded-lg p-[10px]">
-					<img class="w-full h-[200PX]    rounded-lg" src="./Images/@item.Hinh">
+					<img class="w-full h-[200PX]    rounded-lg" src="~/Images/@item.Hinh">
 					<div class="flex items-center ">
 						<button id="favoriteButton1" class="ml-auto mr-[8px] text-black hover:text-red-500  translate-y-6 ">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -45,13 +45,14 @@
 					</div>
 					<div class=" font-bold red-text translate-x-6 ">@item.DonGia.ToString("C0")</div>
 					<div class="mt-3 flex -space-x-2 overflow-hidden">
-						<div class="translate-x-6  inline-block ring-2 ring-white bg-code2 rounded-full h-4 w-5"></div>
-						<div class="translate-x-6  inline-block ring-2 ring-white bg-code1 rounded-full h-4 w-5"></div>
-						<div class="translate-x-6  inline-block ring-2 ring-white bg-code3 rounded-full h-4 w-5"></div>
+						@foreach (var color in item.MauSac)
+							{
+						<div style="background-color:@(color.ToLower())" class="translate-x-6  inline-block ring-2 ring-white rounded-full h-4 w-5"></div>
+							}
 					</div>
 					<button class="buy-button text-center  h-[30px]   px-5 w-full">See More</button>
 				</div>
-
+				
 			}
 		}
 

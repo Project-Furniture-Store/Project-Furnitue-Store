@@ -40,6 +40,29 @@ namespace FurnitureStore_API.Controllers
         }
 
 
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllDonHang() //GetBestProduct is best-seller in the DONHANG collection
+        {
+            // thông báo
+            GetDonHangResponse response = new GetDonHangResponse();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.GetAllDonHang();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
+
         [HttpGet]
         public async Task<ActionResult> GetSLProduct([FromQuery] string idsp) //Đếm sản phẩm trong đơn hàng có mã sp là X
         {

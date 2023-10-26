@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "74fREkRVPxbXLGnQZhcI2Qj6alckt4Roihz936ALNjI=",
+  "Hash": "lh5WE7B54txdvc6XgIukGUy7AKXvlPmzt+o+zzuysZ8=",
   "Source": "Project_FurnitureStore",
   "BasePath": "_content/Project_FurnitureStore",
   "Mode": "Default",
@@ -661,6 +661,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\icon_search.png"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\italian-leather-small-sectional-couch-alpa-belmondo.jpg",
+      "SourceId": "Project_FurnitureStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\",
+      "BasePath": "_content/Project_FurnitureStore",
+      "RelativePath": "Images/italian-leather-small-sectional-couch-alpa-belmondo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\italian-leather-small-sectional-couch-alpa-belmondo.jpg"
     },
     {
       "Identity": "C:\\Users\\admin\\Documents\\GitHub\\Project-Furnitue-Store\\Project_FurnitureStore\\wwwroot\\Images\\ketivicanhlua.jpg",

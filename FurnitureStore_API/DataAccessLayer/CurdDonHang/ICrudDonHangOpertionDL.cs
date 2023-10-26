@@ -7,5 +7,6 @@ namespace FurnitureStore_API.DataAccessLayer
     {
         public Task<GetSanPhamResponse> GetBestProduct();
         public Task<String> GetSLProduct(string idsp);
+        public  Task<GetDonHangResponse> GetAllDonHang();
     }
 }
