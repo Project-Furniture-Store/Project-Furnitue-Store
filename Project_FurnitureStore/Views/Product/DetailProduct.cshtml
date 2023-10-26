@@ -19,6 +19,38 @@
 
 	var sessionCustomer = ViewContext.HttpContext.Session.GetString("IDCustomer");
 	var soLuongSanPham = ViewContext.HttpContext.Session.GetString("SoLuongSanPham");
+
+	var priceFS = TempData["Flashsaleprice"] as List<FlashSaleViewModel>;
+	var priceVC = TempData["KhuyenMaiprice"] as List<KhuyenMaiViewModel>;
+
+	int giafs = 0;
+	int giavc = 0;
+	int dongiaa = 0;
+
+
+	
+
+
+
+
+	foreach (var item in Model)
+	{
+		dongiaa = Convert.ToInt32(item.DonGia);
+	}
+
+	foreach (var item in priceFS)
+	{
+		giafs = item.PhanTramGiam;
+	}
+
+
+	foreach (var item in priceVC)
+	{
+		giavc = (dongiaa - (dongiaa * (int.Parse(item.TienGiam) / 100)));
+	}
+
+
+
 }
 
 
@@ -26,21 +58,23 @@
 @{
 	foreach (var item in Model)
 	{
+		<p style="display:none" id="giafs">@giafs</p>
+		<p style="display:none" id="giavc">@giavc</p>
 		<div class=" container mx-auto p-4 grid grid-cols-2 gap-6">
 			<div>
-				<img src="~/Images/armchair.jpg" class=" w-full " />
+				<img src="~/Images/@item.Hinh" class=" w-full " />
 				<div class=" grid grid-cols-5 gap-4 mt-4 ">
-					<img src="~/Images/armchair.jpg" class="w-full cursor-pointer  border border-amber-300 " />
-					<img src="~/Images/armchair.jpg" class=" w-full cursor-pointer border " />
-					<img src="~/Images/armchair.jpg" class=" w-full cursor-pointer border " />
-					<img src="~/Images/armchair.jpg" class=" w-full cursor-pointer  border " />
-					<img src="~/Images/armchair.jpg" class=" w-full cursor-pointer  border " />
+					<img src="~/Images/@item.Hinh" class="w-full cursor-pointer  border border-amber-300 " />
+					<img src="~/Images/@item.Hinh" class=" w-full cursor-pointer border " />
+					<img src="~/Images/@item.Hinh" class=" w-full cursor-pointer border " />
+					<img src="~/Images/@item.Hinh" class=" w-full cursor-pointer  border " />
+					<img src="~/Images/@item.Hinh" class=" w-full cursor-pointer  border " />
 				</div>
 			</div>
-			<p style="display:none"  id="idd">@item.id</p>
-			<p style="display:none"  id="dongiaa">@item.DonGia</p>
-			<p style="display:none"  id="sizee">@item.KichCo</p>
-			<p style="display:none"  id="ss">@sessionCustomer</p>
+			<p style="display:none" id="idd">@item.id</p>
+			
+			<p style="display:none" id="sizee">@item.KichCo</p>
+			<p style="display:none" id="ss">@sessionCustomer</p>
 
 
 			<div>
@@ -123,10 +157,63 @@
 
 					</div>
 				</div>
-				<div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-					<p class="text-2xl text-zinc-900 font-semibold">@item.DonGia.ToString("C0")</p>
-					<p class="text-base  text-gray-400 line-through">600.000đ</p>
-				</div>
+
+				@if (giafs == 0 && giavc == 0)//1
+				{
+					<div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
+						<p class="text-2xl text-zinc-900 font-semibold">@item.DonGia.ToString("C0")</p>
+						<p style="display:none" id="dongiaa1">@item.DonGia</p>
+					</div>
+				}
+				else if (giafs != 0 && giavc == 0)//2
+				{
+
+					<div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
+
+						<p class="text-2xl text-zinc-900 font-semibold">@giafs.ToString("C0")</p>
+						<p style="display:none" id="dongiaa2">@giafs</p>
+
+						<p class="text-base  text-gray-400 line-through">@item.DonGia.ToString("C0")</p>
+					</div>
+				}
+				else if (giafs == 0 && giavc != 0)//3
+				{
+					<div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
+
+					<p style="display:none" id="dongiaa3">@giavc</p>
+						// Hiển thị giá sau khi giảm giá
+						<p class="text-2xl text-zinc-900 font-semibold">@giavc.ToString("C0")</p>
+
+
+
+						<p class="text-base  text-gray-400 line-through">@item.DonGia.ToString("C0")</p>
+					</div>
+				}
+				else if (giafs != 0 && giavc != 0)//4
+				{
+					<div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
+
+
+
+						@if (giafs > giavc || giafs == giavc)
+						{
+							<p class="text-2xl text-zinc-900 font-semibold">@giavc.ToString("C0")</p>
+							<p style="display:none" id="dongiaa41">@giavc</p>
+						}
+						else
+						{<p style="display:none" id="dongiaa32">@giafs</p>
+							<p class="text-2xl text-zinc-900 font-semibold">@giafs.ToString("C0")</p>
+						}
+
+
+
+
+						<p class="text-base  text-gray-400 line-through">@item.DonGia.ToString("C0")</p>
+					</div>
+				}
+
+
+
 
 				<div class="mt-4 flex">
 					<h3 class=" text-sm text-gray-800 uppercase">Số Lượng:</h3>
@@ -137,7 +224,7 @@
 					</div>
 				</div>
 
-				
+
 
 
 				<div class=" py-5 my-6 flex gap-3 boder-b border-gray-200 ">
@@ -201,90 +288,152 @@
 			</div>
 
 		</div>
-		<h2>Đánh giá của khách hàng</h2>
-		//<div class="feedback-container">
+	
+		
 
-		//	<div class="rating">
-
-		//		<span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-		//	</div>
-		//	<div class="detail">
-		//		<p><strong>Khách hàng:</strong> @item.DanhGia.KhachHangFeeback</p>
-		//		<p><strong>Chi tiết:</strong> @item.DanhGia.ChiTiet</p>
-
-		//		<img src="Hinh" alt="Hình sản phẩm">
-		//	</div>
-		//</div>
-
-			
 
 	}
 }
+
+
+
+	<h2 class="ml-5">Đánh giá của khách hàng</h2>
+
+	@{
+		@foreach (var item in Model)
+		{
+			@foreach (var item1 in item.DanhGia)
+			{
+				<div class="bg-slate-300 ">@item1.KhachHangFeeback</div>
+				<div>@item1.ChiTiet</div>
+				<hr />
+			}
+		}
+		
+
+	}
+
+
 <script>
 
-									function xuLyClick() {
-										alert("vào");
-										var ss = document.getElementById("ss").innerHTML;
-										var mauSacDuocChon = null;
-										//get link now:
-										var currentUrll = window.location.href;
-										var link = document.getElementById("sendUrll");
-										//get sl
-										var quantityInput = document.querySelector('.quantity-input');
-										var soLuong = quantityInput.value;
-										//get màu
-										var colorInputs = document.querySelectorAll('input[name="color"]');
+	function xuLyClick() {
+		alert("vào");
+		var ss = document.getElementById("ss").innerHTML;
+		var mauSacDuocChon = null;
+		//get link now:
+		var currentUrll = window.location.href;
+		var link = document.getElementById("sendUrll");
+		//get sl
+		var quantityInput = document.querySelector('.quantity-input');
+		var soLuong = quantityInput.value;
+		//get màu
+		var colorInputs = document.querySelectorAll('input[name="color"]');
 
-										colorInputs.forEach(function(input) {
-											if (input.checked) {
-												mauSacDuocChon = input.value;
-											}
-										});
-										
-										if( mauSacDuocChon==null)
-										{
-											alert("Vui lòng chọn đầy đủ");
-											
-										}
-										else if (ss == "") // chưa đăng nhập => (idsp, mau, dongia,soluong, kichthuoc, link)
-										{alert("V2");
-											
-											var currentUrll = window.location.href;
-											var linkk = document.getElementById("sendUrll");
-											var url = "@Url.Action("Login", "Account")";
-												url += "?currentUrl=" + encodeURIComponent(currentUrll);
-												var id = document.getElementById("idd").innerHTML;
-												var dongia = document.getElementById("dongiaa").innerHTML;
-												var kichthuoc = document.getElementById("sizee").innerHTML;
-												
-												if (id != null) {
-													url += "&id=" + id;
-													url += "&mausac=" + mauSacDuocChon;
-													url += "&dongia=" + dongia;
-													url += "&sl=" + soLuong;
-													url += "&size=" + kichthuoc;
+		colorInputs.forEach(function(input) {
+			if (input.checked) {
+				mauSacDuocChon = input.value;
+			}
+		});
 
-												}
-												link.href = url;
-										}
-										else if (ss != "")// đã đăng nhập => (idsp, mau, dongia,soluong, kichthuoc)
-										{alert("V3");
-											
-											var currentUrll3 = window.location.href;
-											var linkk3 = document.getElementById("sendUrll");
-											var id = document.getElementById("idd").innerHTML;
-												var dongia = document.getElementById("dongiaa").innerHTML;
-												var kichthuoc = document.getElementById("sizee").innerHTML;
-											var url3 = "@Url.Action("ThemGioHang", "Cart")";
-												url3 += "?idsp=" + id;
-												url3 += "&mausac=" + mauSacDuocChon;
-												url3 += "&dongia=" + dongia;
-												url3 += "&sl=" + soLuong;
-												url3 += "&size=" + kichthuoc;
-												url3 += "&url=" + encodeURIComponent(currentUrll3);
-												linkk3.href = url3;
-											
-										}
+		if( mauSacDuocChon==null)
+		{
+			alert("Vui lòng chọn đầy đủ");
 
-									}
-				</script>
+		}
+		else if (ss == "") // chưa đăng nhập => (idsp, mau, dongia,soluong, kichthuoc, link)
+		{
+
+			var currentUrll = window.location.href;
+			var linkk = document.getElementById("sendUrll");
+			var url = "@Url.Action("Login", "Account")";
+				url += "?currentUrl=" + encodeURIComponent(currentUrll);
+				var id = document.getElementById("idd").innerHTML;
+				var dongia1 = "";
+				var giafs = document.getElementById("giafs").innerHTML;
+				var giavc = document.getElementById("giavc").innerHTML;
+				if (giafs == 0 && giavc == 0)//1
+				{
+					dongia1 = document.getElementById("dongiaa1").innerHTML;
+					
+				}
+				else if (giafs != 0 && giavc == 0)//2
+				{
+
+					dongia1 = document.getElementById("dongiaa2").innerHTML;
+				}
+				else if (giafs == 0 && giavc != 0)//3
+				{
+					dongia1 = document.getElementById("dongiaa3").innerHTML;
+				}
+				else if (giafs != 0 && giavc != 0)//4
+				{
+						if (giafs > giavc || giafs == giavc)
+						{
+							dongia1 = document.getElementById("dongiaa41").innerHTML;
+						}
+						else
+						{dongia1 = document.getElementById("dongiaa42").innerHTML;
+						}
+				}
+
+
+
+
+				if (id != null) {
+					url += "&id=" + id;
+					url += "&mausac=" + mauSacDuocChon;
+					url += "&dongia=" + dongia1;
+					url += "&sl=" + soLuong;
+					url += "&size=" + kichthuoc;
+
+				}
+				link.href = url;
+		}
+		else if (ss != "")// đã đăng nhập => (idsp, mau, dongia,soluong, kichthuoc)
+		{
+
+			var currentUrll3 = window.location.href;
+			var linkk3 = document.getElementById("sendUrll");
+			var id = document.getElementById("idd").innerHTML;
+					var dongia1 = "";
+				var giafs = document.getElementById("giafs").innerHTML;
+				var giavc = document.getElementById("giavc").innerHTML;
+				if (giafs == 0 && giavc == 0)//1
+				{
+					dongia1 = document.getElementById("dongiaa1").innerHTML;
+					
+				}
+				else if (giafs != 0 && giavc == 0)//2
+				{
+
+					dongia1 = document.getElementById("dongiaa2").innerHTML;
+				}
+				else if (giafs == 0 && giavc != 0)//3
+				{
+					dongia1 = document.getElementById("dongiaa3").innerHTML;
+				}
+				else if (giafs != 0 && giavc != 0)//4
+				{
+						if (giafs > giavc || giafs == giavc)
+						{
+							dongia1 = document.getElementById("dongiaa41").innerHTML;
+						}
+						else
+						{dongia1 = document.getElementById("dongiaa42").innerHTML;
+						}
+				}
+
+				var kichthuoc = document.getElementById("sizee").innerHTML;
+			var url3 = "@Url.Action("ThemGioHang", "Cart")";
+				url3 += "?idsp=" + id;
+				url3 += "&mausac=" + mauSacDuocChon;
+				url3 += "&dongia=" + dongia1;
+				url3 += "&sl=" + soLuong;
+				url3 += "&size=" + kichthuoc;
+				url3 += "&url=" + encodeURIComponent(currentUrll3);
+				linkk3.href = url3;
+
+		}
+
+	}
+</script>

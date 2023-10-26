@@ -73,6 +73,8 @@ namespace Project_FurnitureStore.Controllers
 
 
 
+
+
         [HttpGet]
         public async Task<IActionResult> DetailProduct(string idProduct)
         {
@@ -102,11 +104,59 @@ namespace Project_FurnitureStore.Controllers
 
             //Đếm sản phẩm trong đơn hàng
             ViewData["Count"] = await GetSLSPinDonHang(SanPhamList[0].id);
-
+            await loadflashsalebyID(idProduct);
+            await loadkhuyenmaibyID(idProduct);
             return View(SanPhamList);
 
             
         }
+
+        public async Task loadflashsalebyID( string idsp)
+        {
+            List<FlashSaleViewModel> flashsaleList = new List<FlashSaleViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/FlashSale/GetPriceFlashSalebyIdsp?idsp={idsp}");
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    flashsaleList = JsonConvert.DeserializeObject<List<FlashSaleViewModel>>(dataJson);
+                }
+
+            }
+            TempData["Flashsaleprice"] = flashsaleList;
+
+        }
+
+
+        public async Task loadkhuyenmaibyID(string idsp)
+        {
+            List<KhuyenMaiViewModel> khuyenmaiList = new List<KhuyenMaiViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhuyenMai/GetPriceKhuyenMaibyIdsp?idsanpham={idsp}");
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    khuyenmaiList = JsonConvert.DeserializeObject<List<KhuyenMaiViewModel>>(dataJson);
+                }
+
+            }
+            TempData["KhuyenMaiprice"] = khuyenmaiList;
+
+        }
+
+
 
 
         public async Task<List<LoaiHangViewModel>> GetLoaiHangbyid(string idloai)

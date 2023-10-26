@@ -1,146 +1,64 @@
-﻿
+﻿@model IEnumerable<Project_FurnitureStore.Models.GioHangViewModel>
 @{
-    ViewData["Title"] = "PersonalCart";
-    Layout = "~/Views/Cart/Index.cshtml";
+	ViewData["Title"] = "PersonalCart";
+	Layout = "~/Views/Cart/Index.cshtml";
+	decimal tongTien = 0;
 }
 
-<div class="flex "><div class="center w-[900px] max-h-[400] ">
-           
-            
-            <div class="list">
-                <div class="item" data-key="1">
-                    <div class="img">
-                        <img src="~/Images/denthuytinh.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="title">ĐÈN THỦY TINH</div>
-                        <div class="price">350000VND</div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Màu: </label>
-                            <div class="total  w-20  -translate-y-1 ">Vàng</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Size: </label>
-                            <div class="total w-20  -translate-y-1 ">D3922</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Thành Tiền: </label>
-                            <div class="total   w-20  -translate-y-1 ">000000</div>
-                        </div>
-                        <input type="number" class="count" min="1" value="1">
-                        <button class="add">Add to cart</button>
-                        <button class="remove" onclick="Remove(1)"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
-
-                <div class="item" data-key="2">
-                    <div class="img">
-                        <img src="~/Images/GheElisa.jpeg" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="title">GHẾ ELISA</div>
-                     
-                        <div class="price">1000000VND</div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Màu: </label>
-                            <div class="total   w-20  -translate-y-1 ">Vàng</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Size: </label>
-                            <div class="total  w-20  -translate-y-1 ">D3922</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Thành Tiền: </label>
-                            <div class="total   w-20  -translate-y-1 ">000000</div>
-                        </div>
-                        <input type="number" class="count" min="1" value="1">
-                        <button class="add">Add to cart</button>
-                        <button class="remove" onclick="Remove(2)"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
-
-                <div class="item" data-key="3">
-                    <div class="img">
-                        <img src="~/Images/donghong.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="title">ĐỒNG HỒ</div>
-                        <div class="price">570000VND</div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Màu: </label>
-                            <div class="total   w-20  -translate-y-1 ">Vàng</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Size: </label>
-                            <div class="total   w-20  -translate-y-1 ">D3922</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Thành Tiền: </label>
-                            <div class="total   w-20  -translate-y-1 ">000000</div>
-                        </div>
-                        <input type="number" class="count" min="1" value="1">
-                        <button class="px-1 border rounded-1 bg-info">Add to cart</button>
-                        <button class="remove" onclick="Remove(3)"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
-
-                <div class="item" data-key="4">
-                    <div class="img">
-                        <img src="~/Images/sofaPolytaly.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="title">SOFA POLYTALY</div>
-                        <div class="price">500000VND</div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Màu: </label>
-                            <div class="total  w-20  -translate-y-1 ">Vàng</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Size: </label>
-                            <div class="total   w-20  -translate-y-1 ">D3922</div>
-                        </div>
-                        <div class="size flex items-center">
-                            <label for="title" class="ml-2 ">Thành Tiền: </label>
-                            <div class="total  w-20  -translate-y-1 ">000000</div>
-                        </div>
-                        <input type="number" class="count" min="1" value="1">
-                        <button class="add">Add to cart</button>
-                        <button class="remove" onclick="Remove(4)"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </div>
+<div class="">
+	<div class="center w-full max-h-[1000px] ">
 
 
-            </div>
+		<div class="list">
 
-        </div>
+			@{
+				foreach (var item in Model)
+				{
+					decimal thanhTien = item.DonGia * item.SoLuong;
+					tongTien += thanhTien; //
+					<div class="item" data-key="4">
+						<div class="img">
+							<img src="~/Images/@item.SanPham.HinhAnh" alt="">
+						</div>
+						<div class="content">
+							<div class="title">@item.SanPham.TenSP</div>
+							<div class="price">@item.DonGia.ToString("C0")</div>
+							<div class="size flex items-center">
+								<label for="title" class="ml-2 text-sm ">Màu: </label>
+								<div  class="total  w-[20px] h-[20px]  -translate-y-1 text-sm" >@item.MauSac</div>
+								
+							</div>
+							<div   class="size flex items-center">
+								<label for="title" class="ml-2 text-sm">Size: </label>
+								<div class="total    -translate-y-1 text-sm">@item.KichThuoc</div>
+							</div>
+							<div class="size flex items-center">
+								<label for="title" class="ml-2 text-sm">Thành Tiền: </label>
+								<div class="total  w-20  -translate-y-1 text-sm">@thanhTien.ToString("C0")</div>
+							</div>
+							<input type="number" class="count" min="1" value="@item.SoLuong">
+							<button class="add">Add to cart</button>
+							<button class="remove" onclick="Remove(4)"><i class="fa-solid fa-trash-can"></i></button>
+						</div>
+					</div>
+				}
+			}
 
 
-         <div class="cart ">
-            <div class=" overflow-y-auto listCart translate-y-9 max-h-[400]">
-                <div class="total-amount">Tổng tiền: 0VND</div>
-            </div>
-            
-        </div>
-        </div>
 
-           <script>
-        let list = document.querySelectorAll('.list .item');
-        list.forEach(item => {
-            item.addEventListener('click', function (event) {
-                if (event.target.classList.contains('add')) {
-                    var itemNew = item.cloneNode(true);
-                    let checkIsset = false;
-                    
-                    if (checkIsset == false) {
-                        document.querySelector('.listCart').appendChild(itemNew);
-                        // Xóa sản phẩm khỏi danh sách sản phẩm sau khi thêm vào giỏ hàng
-                        item.remove();
-                    }
 
-                }
-            })
-        });
-      
 
-    </script>
+		</div>
+
+	</div>
+
+
+	<div class="cart ">
+		<div class=" overflow-y-auto listCart translate-y-9 max-h-[400]">
+			<div class="total-amount">Tổng tiền: @tongTien.ToString("C")</div>
+		</div>
+
+	</div>
+</div>
+
 

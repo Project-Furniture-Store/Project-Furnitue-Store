@@ -13,6 +13,7 @@ namespace FurnitureStore_API.DataAccessLayer
         public Task<InsertKhuyenMaiResponse> SetKhuyenMai(InsertKhuyenMaiResquest khuyenmai);
         public Task<UpdataKhuyenMaiPatchResponse> UpdateKhuyenMaibyIDPatch(UpdataKhuyenMaiPatchResquest Khuyenmai);
         public Task<UpdataKhuyenMaiPatchResponse> DeleteKhuyenMaibyID(string idkhuyenmai);
+        public Task<GetKhuyenMaiResponse> GetPriceKhuyenMaibyIdsp(string idsanpham);
 
     }
 }

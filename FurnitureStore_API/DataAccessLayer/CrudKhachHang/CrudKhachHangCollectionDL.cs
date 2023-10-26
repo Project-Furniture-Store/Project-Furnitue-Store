@@ -1,4 +1,5 @@
-﻿using FurnitureStore_API.Model.KhachHang;
+﻿using FurnitureStore_API.Model.GioHang;
+using FurnitureStore_API.Model.KhachHang;
 using FurnitureStore_API.Model.Other.GioHang;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -10,7 +11,7 @@ namespace FurnitureStore_API.DataAccessLayer
         private readonly IConfiguration _configuration;
         private readonly MongoClient _mongoClient;
         private readonly IMongoCollection<InsertKhachHangResquest> _mongoCollection;
-
+        private readonly IMongoCollection<GioHangItemGH> _mongoCollection1;
 
 
         // Constructor của Data Layer, thêm IConfiguration để đọc cấu hình và khởi tạo kết nối đến MongoDB
@@ -21,6 +22,7 @@ namespace FurnitureStore_API.DataAccessLayer
             var _mongoDatabase = _mongoClient.GetDatabase(_configuration["Database:DatabaseName"]);
             var collectionName = _configuration["Database:Collections:Collection_KhachHang"]; // Lấy tên collection từ cấu hình
             _mongoCollection = _mongoDatabase.GetCollection<InsertKhachHangResquest>(collectionName);
+            _mongoCollection1 = _mongoDatabase.GetCollection<GioHangItemGH>(collectionName);
         }
 
         public async Task<GetKhachHangResponse> AddProductCart(string idkh, string idsp, string mausac, string dongia, string sl, string size)
@@ -65,9 +67,86 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
+        public async Task<GetGioHang> GetInforCart(string idKH)
+        {
+            GetGioHang response = new GetGioHang();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
 
 
-		public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass) // gét đăng nhập
+                var pipeline = new[]
+                {
+                    BsonDocument.Parse(@"
+                        {
+                            $match: {
+                                _id: ObjectId(""" + idKH + @""")
+                            }
+                        }
+                    "),
+                    BsonDocument.Parse(@"
+                        {
+                            $unwind: ""$GioHang""
+                        }
+                    "),
+                    BsonDocument.Parse(@"
+                        {
+                            $lookup: {
+                                from: ""SANPHAM"",
+                                localField: ""GioHang.SanPhamCart"",
+                                foreignField: ""_id"",
+                                as: ""sanpham_info""
+                            }
+                        }
+                    "),
+                    BsonDocument.Parse(@"
+                        {
+                            $unwind: ""$sanpham_info""
+                        }
+                    "),
+                    BsonDocument.Parse(@"
+                        {
+                            $project: {
+                                TenKhachHang: 1,
+                                DonGia: ""$GioHang.DonGia"",
+                                MauSac: ""$GioHang.MauSac"",
+                                SoLuong: ""$GioHang.SoLuong"",
+                                KichThuoc: ""$GioHang.KichCo"",
+                                SanPham: {
+                                    HinhAnh: ""$sanpham_info.Hinh"",
+                                    TenSP: ""$sanpham_info.TenSP"",
+                                    IDSP: ""$sanpham_info._id""
+                                }
+                            }
+                        }
+                    ")
+                };
+
+                List<GioHangItemGH> listsp = await _mongoCollection.Aggregate<GioHangItemGH>(pipeline).ToListAsync();
+
+                if (listsp.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+
+                response.data = listsp;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+        public async Task<GetKhachHangResponse> GetKhachHangByID(string account, string pass) // gét đăng nhập
         {
             GetKhachHangResponse response = new GetKhachHangResponse();
 

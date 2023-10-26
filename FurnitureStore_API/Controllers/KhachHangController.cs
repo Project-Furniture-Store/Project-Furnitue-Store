@@ -1,4 +1,5 @@
 ﻿using FurnitureStore_API.DataAccessLayer;
+using FurnitureStore_API.Model.GioHang;
 using FurnitureStore_API.Model.KhachHang;
 using FurnitureStore_API.Model.Other.GioHang;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace FurnitureStore_API.Controllers
             _crudOperationDL = crudOperationDL;
         }
 
-
+        
         [HttpGet]
         public async Task<ActionResult> GetKhachHangbyID([FromQuery]  string idKH)
         {
@@ -40,6 +41,29 @@ namespace FurnitureStore_API.Controllers
             return Ok(response);
         }
 
+
+
+        [HttpGet]
+        public async Task<ActionResult> GetInforCart([FromQuery] string idKH)
+        {
+            // thông báo
+            GetGioHang response = new GetGioHang();
+
+            try
+            {
+                // Gọi phương thức InsertRecord của đối tượng _crudOperationDL
+                response = await _crudOperationDL.GetInforCart(idKH);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi HTTP với kết quả từ _crudOperationDL
+            return Ok(response);
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetKhachHangLogin([FromQuery] string account,string pass)

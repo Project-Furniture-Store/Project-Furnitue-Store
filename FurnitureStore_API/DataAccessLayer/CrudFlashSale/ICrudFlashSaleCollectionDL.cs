@@ -16,5 +16,6 @@ namespace FurnitureStore_API.DataAccessLayer
         public Task<GetFlashSaleResponse> DeleteProductIDFs(string fsId, List<string> idSPs);
         public Task<UpdataFlashSaleResponse> UpdateFlashSalebyIDPatch(UpdataFlashSaleRequest flashsale);
         public Task<GetFlashSaleResponse> CheckSaleFlashSale(string date);
+        public Task<GetFlashSaleResponse> GetPriceFlashSalebyIdsp(string idsp);
     }
 }

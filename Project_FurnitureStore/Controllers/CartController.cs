@@ -74,10 +74,27 @@ namespace Project_FurnitureStore.Controllers
 
         public async Task<ActionResult> PersonalCart()
         {
+            var idKHh = HttpContext.Session.GetString("IDCustomer");
+            List<GioHangViewModel> giohangitem = new List<GioHangViewModel>();
+            HttpResponseMessage response = await _client.GetAsync(_client.BaseAddress + $"/KhachHang/GetInforCart?idKH={idKHh}");
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string data = await response.Content.ReadAsStringAsync();
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(data); // Đọc dữ liệu JSON vào một đối tượng JObject
+
+                if (jsonObject != null && jsonObject["data"] != null)
+                {
+                    var dataJson = jsonObject["data"].ToString(); // Lấy phần "data" của JSON
+                    giohangitem = JsonConvert.DeserializeObject<List<GioHangViewModel>>(dataJson);
+                 
+                }
+
+            }
+            return View(giohangitem);
 
 
-            return View();
-            
         }
     }
 }

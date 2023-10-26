@@ -17,7 +17,7 @@
 			@if (sessionCustomer != "admin")
 			{
 				<div class="bg-white border-2 border-black h-[240px] w-full rounded-lg p-[3px]">
-					<img class="w-full h-[200PX] rounded-lg" src="~/Images/GheElisa.jpeg">
+					<img class="w-full h-[200PX] rounded-lg" src="~/Images/@item.Hinh">
 					<div class="font-Raleway text-[25px] translate-x-6 flex justify-center">
 						@if (item.TenKhuyenMai.Length > 16)
 						{
@@ -33,7 +33,7 @@
 			else
 			{
 				<div class="bg-white border-2 border-black h-[324px] w-full rounded-lg p-[3px] ml-[42px]">
-					<img class="w-full h-[200PX] rounded-lg" src="~/Images/GheElisa.jpeg">
+					<img class="w-full h-[200PX] rounded-lg" src="~/Images/@item.Hinh">
 					<div class="font-Raleway text-[18px] translate-x-6">
 						@if (item.TenKhuyenMai.Length > 20)
 						{

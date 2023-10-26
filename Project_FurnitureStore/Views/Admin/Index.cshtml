@@ -3,25 +3,21 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="flex">
-	<div class=" bg-cyan-700  ">
-		<div class="menu w-[250px] ">
+	<div style="background-color: #f5f5f5; width: 250px; height: 100%; padding: 20px;">
 
-			<ul>
-				<li class="active text-xl bg-white"  id="ProductTab">ADMIN</li>
-				<a href="@Url.Action("AddProductAdmin", "Admin")" > <li class="active" id="ProductTab"> Product</li> </a>
-				<a href="@Url.Action("AddKhuyenMai", "Admin")"><li id="AllOrderTab">Voucher</li></a>
-				<li id="VoucherTab">Voucher</li>
-				<a href="@Url.Action("AddFlashSale", "Admin")"><li id="FlashSaleTab">FlashSale</li></a>
-				<li id="CoinTab">Coin</li>
-			</ul>
+    <div style="margin-bottom: 20px;">
+        <h2 style="color: #333;">Menu</h2>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 10px; padding: 5px 0; font-weight: bold;" id="ProductTab">ADMIN</li>
+            <li style="margin-bottom: 10px; padding: 5px 0;" id="ProductTab"><a href="@Url.Action("AddProductAdmin", "Admin")" style="text-decoration: none; color: #333;">Product</a></li>
+            <li style="margin-bottom: 10px; padding: 5px 0;" id=""><a href="@Url.Action("AddKhuyenMai", "Admin")" style="text-decoration: none; color: #333;">Voucher</a></li>
+            <li style="margin-bottom: 10px; padding: 5px 0;" id="VoucherTab"><a href="@Url.Action("AddFlashSale", "Admin")" style="text-decoration: none; color: #333;">FlashSale</a></li>
+            <li style="margin-bottom: 10px; padding: 5px 0;" id="CoinTab">Coin</li>
+        </ul>
+    </div>
 
+</div>
 
-		</div>
-
-
-
-
-	</div>
 	<div>@RenderBody() </div>
 </div>
 

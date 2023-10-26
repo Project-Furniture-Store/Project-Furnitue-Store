@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FurnitureStore_API.DataAccessLayer
 {
-    public class CrudKhuyenMaiCollectionDL: ICrudOperationDL_KhuyenMai
+    public class CrudKhuyenMaiCollectionDL : ICrudOperationDL_KhuyenMai
     {
         private readonly IConfiguration _configuration;
         private readonly MongoClient _mongoClient;
@@ -119,8 +119,8 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-		public async Task<UpdataKhuyenMaiPatchResponse> DeleteKhuyenMaibyID(string idkhuyenmai)
-		{
+        public async Task<UpdataKhuyenMaiPatchResponse> DeleteKhuyenMaibyID(string idkhuyenmai)
+        {
             UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
 
             // Khởi tạo giá trị mặc định cho phản hồi
@@ -147,7 +147,7 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-		public async Task<GetKhuyenMaiResponse> GetKhuyenMai()
+        public async Task<GetKhuyenMaiResponse> GetKhuyenMai()
         {
             GetKhuyenMaiResponse response = new GetKhuyenMaiResponse();
 
@@ -207,8 +207,69 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-		public async Task<GetSanPhamResponse> ListProductKhuyenMai(string idKhuyenMai)
-		{
+        public async Task<GetKhuyenMaiResponse> GetPriceKhuyenMaibyIdsp(string idsanpham)
+        {
+            GetKhuyenMaiResponse response = new GetKhuyenMaiResponse();
+
+            // Khởi tạo giá trị mặc định cho phản hồi
+            response.IsSuccess = true;
+            response.Message = "Data Successfully";
+
+            try
+            {
+                DateTime currentDate = DateTime.Now;
+                string formattedDate = currentDate.ToString("yyyy-MM-dd");
+
+                var pipeline = new[]
+                {
+            BsonDocument.Parse($@"{{
+                $match: {{
+                    IdSP: {{
+                        $elemMatch: {{
+                            $in: [ObjectId(""{idsanpham}"")]
+                        }}
+                    }},
+                    TienGiam: {{ $exists: true }},
+                    $and: [
+                        {{
+                            NgayKhuyenMai: {{
+                                $lte: ""{formattedDate}""
+                            }}
+                        }},
+                        {{
+                            NgayKetThuc: {{
+                                $gte: ""{formattedDate}""
+                            }}
+                        }}
+                    ]
+                }}
+            }}")
+        };
+
+                List<InsertKhuyenMaiResquest> listsp = await _mongoCollection.Aggregate<InsertKhuyenMaiResquest>(pipeline).ToListAsync();
+
+                if (listsp.Count == 0)
+                {
+                    response.Message = "No record found";
+                }
+
+                response.data = listsp;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có lỗi xảy ra trong quá trình thực hiện
+                response.IsSuccess = false;
+                response.Message = "Error" + ex.Message;
+            }
+
+            // Trả về phản hồi
+            return response;
+        }
+
+
+
+        public async Task<GetSanPhamResponse> ListProductKhuyenMai(string idKhuyenMai)
+        {
             GetSanPhamResponse response = new GetSanPhamResponse();
 
             // Khởi tạo giá trị mặc định cho phản hồi
@@ -273,8 +334,8 @@ namespace FurnitureStore_API.DataAccessLayer
             return response;
         }
 
-		public async Task<UpdataKhuyenMaiPatchResponse> UpdateKhuyenMaibyIDPatch(UpdataKhuyenMaiPatchResquest Khuyenmai)
-		{
+        public async Task<UpdataKhuyenMaiPatchResponse> UpdateKhuyenMaibyIDPatch(UpdataKhuyenMaiPatchResquest Khuyenmai)
+        {
             UpdataKhuyenMaiPatchResponse response = new UpdataKhuyenMaiPatchResponse();
 
             // Khởi tạo giá trị mặc định cho phản hồi
@@ -292,7 +353,7 @@ namespace FurnitureStore_API.DataAccessLayer
                     { "NgayKetThuc", Khuyenmai.NgayKetThuc },
                     { "DieuKien", Khuyenmai.DieuKien },
                     { "TienGiam", Khuyenmai.TienGiam }
-                   
+
                 };
 
                 var update = new BsonDocument("$set", filter);
@@ -312,5 +373,5 @@ namespace FurnitureStore_API.DataAccessLayer
             // Trả về phản hồi
             return response;
         }
-	}
+    }
 }
